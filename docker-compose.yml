@@ -1,0 +1,49 @@
+version: '3'
+services:
+  database:
+    image: postgres:12.3-alpine
+    environment:
+      POSTGRES_MULTIPLE_DATABASES: postgres_dev,postgres_test
+      #POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_password
+    volumes:
+      - ./docker/database/create-multiple-postgresql-databases.sh:/docker-entrypoint-initdb.d/create-multiple-postgresql-databases.sh
+
+  development:
+    build: .
+    depends_on:
+      - database
+    expose:
+      - "3000"
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
+    env_file:
+      - ./.env.development
+    volumes:
+      - .:/usr/src/app
+    command: sh -c "rm -rf /usr/src/app/tmp/pids/server.pid && rails db:migrate && rails s -p 3000 -b 0.0.0.0"
+
+  test:
+    build: .
+    depends_on:
+      - database
+    env_file:
+      - ./.env.test
+    volumes:
+      - .:/usr/src/app
+    stdin_open: true
+    tty: true
+    command: sh -c "rails db:migrate"
+
+  apiblueprint:
+    image: quay.io/bukalapak/snowboard:v3.5.4
+    command: http -b 0.0.0.0:8088 --playground -c config/snowboard.yml doc.apib
+    expose:
+      - "8088"
+    ports:
+      - "8088:8088"
+    volumes:
+      - .:/doc
