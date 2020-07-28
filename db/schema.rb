@@ -51,16 +51,6 @@ ActiveRecord::Schema.define(version: 2020_07_24_015349) do
     t.index ["product_id"], name: "index_organizations_products_on_product_id"
   end
 
-  create_table "organizations_users", force: :cascade do |t|
-    t.bigint "organization_id", null: false
-    t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["organization_id", "user_id"], name: "index_organizations_users_on_organization_id_and_user_id", unique: true
-    t.index ["organization_id"], name: "index_organizations_users_on_organization_id"
-    t.index ["user_id"], name: "index_organizations_users_on_user_id"
-  end
-
   create_table "products", force: :cascade do |t|
     t.string "name", limit: 30, null: false
     t.string "description", limit: 300, null: false
@@ -101,8 +91,6 @@ ActiveRecord::Schema.define(version: 2020_07_24_015349) do
   add_foreign_key "features_roles", "roles", column: "roles_id"
   add_foreign_key "organizations_products", "organizations"
   add_foreign_key "organizations_products", "products"
-  add_foreign_key "organizations_users", "organizations"
-  add_foreign_key "organizations_users", "users"
   add_foreign_key "roles", "organizations_products", column: "organizations_products_id"
   add_foreign_key "users_roles", "roles", column: "roles_id"
   add_foreign_key "users_roles", "users", column: "users_id"
