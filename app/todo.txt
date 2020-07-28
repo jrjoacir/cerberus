@@ -3,22 +3,22 @@ generates
 https://guides.rubyonrails.org/getting_started.html
 https://stackoverflow.com/questions/22661580/generate-rails-models-with-mandatory-required-fields-i-e-not-null-from-command
 
-rails generate model organization name:string{30}:uniq
+rails generate model client name:string{30}:uniq
 rails generate model user login:string{30}:uniq name:string{60}
 rails generate model product name:string{30}:uniq description:string{300}
 
 https://stackoverflow.com/questions/5322067/generating-a-model-with-many-to-many-in-ruby-on-rails
-rails generate model organizations_users organization:references user:references
-rails generate model organizations_products organization:references product:references
+rails generate model clients_users client:references user:references
+rails generate model clients_products client:references product:references
 rails generate model features product:references name:string{30}
-rails generate model roles organizations_products:references name:string{30}
+rails generate model roles clients_products:references name:string{30}
 rails generate model features_roles features:references roles:references
 rails generate model users_roles users:references roles:references
 
 uniques and model validations:
-- organizations_users -> organization_id, user_id
-- organizations_products -> organization_id, product_id
+- clients_users -> client_id, user_id
+- clients_products -> client_id, product_id
 - features -> product_id, name
-- roles -> organizations_products_id, name
+- roles -> clients_products_id, name
 - features_roles -> feature_id, role_id
 - users_roles -> user_id, role_id

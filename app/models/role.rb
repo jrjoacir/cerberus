@@ -1,6 +1,6 @@
 class Role < ApplicationRecord
-  belongs_to :organizations_products, class_name: "OrganizationsProduct"
+  belongs_to :clients_products, class_name: "ClientsProduct"
 
-  validates :name, presence: true, uniqueness: { scope: :organizations_products_id }, length: { maximum: 30 }
-  validates :organizations_products_id, presence: true, uniqueness: { scope: :name }
+  validates :name, presence: true, uniqueness: { scope: :clients_products_id }, length: { maximum: 30 }
+  validates :clients_products_id, presence: true, uniqueness: { scope: :name }
 end
