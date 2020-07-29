@@ -8,48 +8,48 @@
 
 clients = { google: Client.create!(name: 'Google'), facebook: Client.create!(name: 'Facebook'), amazon: Client.create!(name: 'Amazon') }
 
-products = { gmail: Product.create!(name: 'Gmail', description: 'Google Eletronic Mail'), youtube: Product.create!(name: 'YouTube', description: 'YouTube Video'), instagram: Product.create!(name: 'Instagram', description: 'Instagram *') }
+products = { jmail: Product.create!(name: 'JMail', description: 'Jota Eletronic Mail'), jvideos: Product.create!(name: 'JVideos', description: 'Jota Videos'), jphotos: Product.create!(name: 'JPhotos', description: 'Jota Photos') }
 
 users = { joacir: User.create!(login: 'joacir@email.com', name: 'Joacir'), junior: User.create!(login: 'junior@email.com', name: 'Junior'), joacirjunior: User.create!(login: 'joacir.junior@email.com.br', name: 'Joacir Junior'), oliveira: User.create!(login: 'oliveira@email.com.br', name: 'Oliveira'), santos: User.create!(login: 'santos@email.co.jp', name: 'Santos') }
 
-google_products = { gmail: ClientsProduct.create!(product_id: products[:gmail].id, client_id: clients[:google].id), youtube: ClientsProduct.create!(product_id: products[:youtube].id, client_id: clients[:google].id) }
-facebook_products = { instagram: ClientsProduct.create!(product_id: products[:instagram].id, client_id: clients[:facebook].id) }
+google_products = { jmail: ClientsProduct.create!(product_id: products[:jmail].id, client_id: clients[:google].id), jvideos: ClientsProduct.create!(product_id: products[:jvideos].id, client_id: clients[:google].id) }
+facebook_products = { jphotos: ClientsProduct.create!(product_id: products[:jphotos].id, client_id: clients[:facebook].id) }
 
-youtube_features = { post: Feature.create!(product_id: products[:youtube].id, name: 'Post Videos'), watch: Feature.create!(product_id: products[:youtube].id, name: 'Watch Videos') }
-gmail_features = { send: Feature.create!(product_id: products[:gmail].id, name: 'Send Email'), remove: Feature.create!(product_id: products[:gmail].id, name: 'Remove Email') }
-instagram_features = { post: Feature.create!(product_id: products[:instagram].id, name: 'Post Photo'), like: Feature.create!(product_id: products[:instagram].id, name: 'Like Post') }
+jvideos_features = { post: Feature.create!(product_id: products[:jvideos].id, name: 'Post Videos'), watch: Feature.create!(product_id: products[:jvideos].id, name: 'Watch Videos') }
+jmail_features = { send: Feature.create!(product_id: products[:jmail].id, name: 'Send Email'), remove: Feature.create!(product_id: products[:jmail].id, name: 'Remove Email') }
+jphotos_features = { post: Feature.create!(product_id: products[:jphotos].id, name: 'Post Photo'), like: Feature.create!(product_id: products[:jphotos].id, name: 'Like Post') }
 
-gmail_roles = { admin: Role.create!(name: 'admin', clients_products_id: google_products[:gmail].id), normal: Role.create!(name: 'normal', clients_products_id: google_products[:gmail].id)}
-youtube_roles = { admin: Role.create!(name: 'master', clients_products_id: google_products[:youtube].id), normal: Role.create!(name: 'normal', clients_products_id: google_products[:youtube].id)}
-instagram_roles = { liker: Role.create!(name: 'liker', clients_products_id: facebook_products[:instagram].id), poster: Role.create!(name: 'poster', clients_products_id: facebook_products[:instagram].id) }
+jmail_roles = { admin: Role.create!(name: 'admin', clients_products_id: google_products[:jmail].id), normal: Role.create!(name: 'normal', clients_products_id: google_products[:jmail].id)}
+jvideos_roles = { admin: Role.create!(name: 'master', clients_products_id: google_products[:jvideos].id), normal: Role.create!(name: 'normal', clients_products_id: google_products[:jvideos].id)}
+jphotos_roles = { liker: Role.create!(name: 'liker', clients_products_id: facebook_products[:jphotos].id), poster: Role.create!(name: 'poster', clients_products_id: facebook_products[:jphotos].id) }
 
-# youtube_features_roles
-FeaturesRole.create!(features_id: youtube_features[:post].id, roles_id: youtube_roles[:admin].id)
-FeaturesRole.create!(features_id: youtube_features[:post].id, roles_id: youtube_roles[:normal].id)
-FeaturesRole.create!(features_id: youtube_features[:watch].id, roles_id: youtube_roles[:admin].id)
-FeaturesRole.create!(features_id: youtube_features[:watch].id, roles_id: youtube_roles[:normal].id)
+# jvideos_features_roles
+FeaturesRole.create!(features_id: jvideos_features[:post].id, roles_id: jvideos_roles[:admin].id)
+FeaturesRole.create!(features_id: jvideos_features[:post].id, roles_id: jvideos_roles[:normal].id)
+FeaturesRole.create!(features_id: jvideos_features[:watch].id, roles_id: jvideos_roles[:admin].id)
+FeaturesRole.create!(features_id: jvideos_features[:watch].id, roles_id: jvideos_roles[:normal].id)
 
-# gmail_features_roles
-FeaturesRole.create!(features_id: gmail_features[:send].id, roles_id: gmail_roles[:admin].id)
-FeaturesRole.create!(features_id: gmail_features[:send].id, roles_id: gmail_roles[:normal].id)
-FeaturesRole.create!(features_id: gmail_features[:remove].id, roles_id: gmail_roles[:admin].id)
+# jmail_features_roles
+FeaturesRole.create!(features_id: jmail_features[:send].id, roles_id: jmail_roles[:admin].id)
+FeaturesRole.create!(features_id: jmail_features[:send].id, roles_id: jmail_roles[:normal].id)
+FeaturesRole.create!(features_id: jmail_features[:remove].id, roles_id: jmail_roles[:admin].id)
 
-# instagram_features_roles
-FeaturesRole.create!(features_id: instagram_features[:post].id, roles_id: instagram_roles[:poster].id)
-FeaturesRole.create!(features_id: instagram_features[:like].id, roles_id: instagram_roles[:liker].id)
+# jphotos_features_roles
+FeaturesRole.create!(features_id: jphotos_features[:post].id, roles_id: jphotos_roles[:poster].id)
+FeaturesRole.create!(features_id: jphotos_features[:like].id, roles_id: jphotos_roles[:liker].id)
 
-# gmail_users_roles
-UsersRole.create!(users_id: users[:joacir].id, roles_id: gmail_roles[:admin].id)
-UsersRole.create!(users_id: users[:joacir].id, roles_id: gmail_roles[:normal].id)
-UsersRole.create!(users_id: users[:junior].id, roles_id: gmail_roles[:normal].id)
-UsersRole.create!(users_id: users[:oliveira].id, roles_id: gmail_roles[:admin].id)
+# jmail_users_roles
+UsersRole.create!(users_id: users[:joacir].id, roles_id: jmail_roles[:admin].id)
+UsersRole.create!(users_id: users[:joacir].id, roles_id: jmail_roles[:normal].id)
+UsersRole.create!(users_id: users[:junior].id, roles_id: jmail_roles[:normal].id)
+UsersRole.create!(users_id: users[:oliveira].id, roles_id: jmail_roles[:admin].id)
 
-# youtube_users_roles
-UsersRole.create!(users_id: users[:oliveira].id, roles_id: youtube_roles[:admin].id)
-UsersRole.create!(users_id: users[:oliveira].id, roles_id: youtube_roles[:normal].id)
-UsersRole.create!(users_id: users[:santos].id, roles_id: youtube_roles[:normal].id)
-UsersRole.create!(users_id: users[:junior].id, roles_id: youtube_roles[:admin].id)
+# jvideos_users_roles
+UsersRole.create!(users_id: users[:oliveira].id, roles_id: jvideos_roles[:admin].id)
+UsersRole.create!(users_id: users[:oliveira].id, roles_id: jvideos_roles[:normal].id)
+UsersRole.create!(users_id: users[:santos].id, roles_id: jvideos_roles[:normal].id)
+UsersRole.create!(users_id: users[:junior].id, roles_id: jvideos_roles[:admin].id)
 
-# instagram_users_roles
-UsersRole.create!(users_id: users[:joacir].id, roles_id: instagram_roles[:poster].id)
-UsersRole.create!(users_id: users[:santos].id, roles_id: instagram_roles[:poster].id)
+# jphotos_users_roles
+UsersRole.create!(users_id: users[:joacir].id, roles_id: jphotos_roles[:poster].id)
+UsersRole.create!(users_id: users[:santos].id, roles_id: jphotos_roles[:poster].id)
