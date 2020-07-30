@@ -13,3 +13,6 @@ rails generate model features product:references name:string{30}
 rails generate model roles clients_products:references name:string{30}
 rails generate model features_roles features:references roles:references
 rails generate model users_roles users:references roles:references
+
+Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+Read more about tests at https://guides.rubyonrails.org/testing.html
