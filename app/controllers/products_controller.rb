@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   def index
-    render json: Product.all
+    render json: params[:client_id].present? ? products_by_client : Product.all
   end
 
   def show
@@ -15,5 +15,9 @@ class ProductsController < ApplicationController
 
   def create_params
     params.require(:product).permit(:name, :description)
+  end
+
+  def products_by_client
+    ClientsProduct.where(client_id: params[:client_id]).map(&:product)
   end
 end
