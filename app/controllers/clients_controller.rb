@@ -1,7 +1,6 @@
 class ClientsController < ApplicationController
   def index
     render json: params[:product_id].present? ? clients_by_product : Client.all
-    #render json: Client.all
   end
 
   def show

@@ -6,7 +6,9 @@ Rails.application.routes.draw do
 
   resources :products do
     resources :clients
+    resources :features
   end
 
   resources :users
+  resources :features
 end
