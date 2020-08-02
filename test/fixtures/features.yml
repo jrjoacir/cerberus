@@ -2,8 +2,12 @@
 
 one:
   product: one
-  name: MyString
+  name: Feature-1
 
 two:
+  product: one
+  name: Feature-2
+
+three:
   product: two
-  name: MyString
+  name: Feature-3

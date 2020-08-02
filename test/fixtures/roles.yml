@@ -2,8 +2,8 @@
 
 one:
   clients_products: one
-  name: MyString
+  name: Role 1
 
 two:
-  clients_products: two
-  name: MyString
+  clients_products: one
+  name: Role 2

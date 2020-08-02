@@ -5,5 +5,9 @@ one:
   roles: one
 
 two:
-  users: two
+  users: one
   roles: two
+
+three:
+  users: two
+  roles: one
