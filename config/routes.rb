@@ -6,9 +6,9 @@ Rails.application.routes.draw do
 
   resources :products do
     resources :clients
-    resources :features
+    resources :features, only: [:create, :index, :show]
   end
 
   resources :users
-  resources :features
+  resources :features, only: [:index, :show]
 end

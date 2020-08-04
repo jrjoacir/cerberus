@@ -31,7 +31,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should raise unprocessable entity error on create an user' do
-    assert_no_difference('users.count') do
+    assert_no_difference('User.count') do
       post '/users', params: { user: { name: users(:one).name, login: users(:one).login } }
       assert_equal @response.body, { message: 'Unprocessable Entity' }.to_json
       assert_equal @response.code, '422'
