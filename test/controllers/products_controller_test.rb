@@ -22,7 +22,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
     assert_equal @response.code, '200'
   end
 
-  test 'should raise not found' do
+  test 'should raise not found error' do
     get "/products/-#{products(:one).id}"
     assert_response :missing
     assert_equal @response.body, { message: 'Not Found' }.to_json
@@ -37,7 +37,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'should raise a error on create a product' do
+  test 'should raise unprocessable entity error on create a product' do
     assert_no_difference('Product.count') do
       post '/products', params: { product: { name: products(:one).name } }
       assert_equal @response.body, { message: 'Unprocessable Entity' }.to_json

@@ -22,7 +22,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     assert_equal @response.code, '200'
   end
 
-  test 'should raise not found' do
+  test 'should raise not found error' do
     get "/clients/-#{clients(:one).id}"
     assert_response :missing
     assert_equal @response.body, { message: 'Not Found' }.to_json
@@ -37,7 +37,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'should raise a error on create a client' do
+  test 'should raise unprocessable entity error on create a client' do
     assert_no_difference('Client.count') do
       post '/clients', params: { client: { name: clients(:one).name } }
       assert_equal @response.body, { message: 'Unprocessable Entity' }.to_json
