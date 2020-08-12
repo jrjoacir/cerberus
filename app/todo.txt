@@ -16,6 +16,3 @@ rails generate model users_roles users:references roles:references
 
 Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 Read more about tests at https://guides.rubyonrails.org/testing.html
-
-Add test for controllers with parent id
-  - products/product_id/clients/id
