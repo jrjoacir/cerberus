@@ -7,3 +7,7 @@ one:
 two:
   name: Product-2
   description: Product 2 description
+
+three:
+  name: Product-3
+  description: Product 3 description

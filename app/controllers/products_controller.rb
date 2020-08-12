@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    render json: Product.find(params[:id])
+    render json: params[:client_id].present? ? product_by_client : Product.find(params[:id])
   end
 
   def create
@@ -19,5 +19,9 @@ class ProductsController < ApplicationController
 
   def products_by_client
     ClientsProduct.where(client_id: params[:client_id]).map(&:product)
+  end
+
+  def product_by_client
+    ClientsProduct.where(client_id: params[:client_id], product_id: params[:id]).first!.product
   end
 end

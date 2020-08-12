@@ -37,8 +37,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should raise not found error find by product' do
-    get "/clients/#{clients_products(:one).client.id}/products/-#{clients_products(:one).product.id}"
-    get "/products/#{clients_products(:one).product.id}/clients/-#{clients_products(:one).client.id}"
+    get "/products/#{clients_products(:one).product.id}/clients/#{clients(:three).id}"
     assert_response :missing
     assert_equal @response.body, { message: 'Not Found' }.to_json
     assert_equal @response.code, '404'
