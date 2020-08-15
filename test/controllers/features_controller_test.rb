@@ -37,7 +37,7 @@ class FeaturesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should raise not found error when find by product' do
-    get "/products/#{features(:one).product.id}/features/-#{features(:one).id}"
+    get "/products/#{features(:one).product.id}/features/#{features(:five).id}"
     assert_response :missing
     assert_equal @response.body, { message: 'Not Found' }.to_json
     assert_equal @response.code, '404'

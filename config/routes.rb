@@ -9,6 +9,6 @@ Rails.application.routes.draw do
     resources :features, only: [:create, :index, :show]
   end
 
-  resources :users
+  resources :users, only: [:index, :show, :create]
   resources :features, only: [:index, :show]
 end
