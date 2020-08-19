@@ -7,3 +7,7 @@ one:
 two:
   client: two
   product: one
+
+three:
+  client: two
+  product: two

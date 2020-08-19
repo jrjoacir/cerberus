@@ -22,10 +22,31 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     assert_equal @response.code, '200'
   end
 
+  test 'should return one client and their products' do
+    get "/clients/#{clients(:two).id}?show_products=true"
+    assert_response :success
+    assert_equal @response.body, clients(:two).to_json(include: :products)
+    assert_equal @response.code, '200'
+  end
+
+  test 'should return one client and an empty products list' do
+    get "/clients/#{clients(:three).id}?show_products=true"
+    assert_response :success
+    assert_equal @response.body, clients(:three).to_json(include: :products)
+    assert_equal @response.code, '200'
+  end
+
   test 'should return one client by product' do
     get "/products/#{clients_products(:one).product.id}/clients/#{clients_products(:one).client.id}"
     assert_response :success
     assert_equal @response.body, clients_products(:one).client.to_json
+    assert_equal @response.code, '200'
+  end
+
+  test 'should return one client by product and their products' do
+    get "/products/#{clients_products(:two).product.id}/clients/#{clients_products(:two).client.id}?show_products=true"
+    assert_response :success
+    assert_equal @response.body, clients_products(:two).client.to_json(include: :products)
     assert_equal @response.code, '200'
   end
 
