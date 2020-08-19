@@ -4,9 +4,9 @@ class FeaturesController < ApplicationController
   end
 
   def show
-    product = params[:product_id].present? ?  feature_by_product : Feature.find(params[:id])
-    return record_not_found unless product
-    render json: product
+    feature = params[:product_id].present? ? feature_by_product : Feature.find(params[:id])
+    return record_not_found unless feature
+    render json: feature
   end
 
   def create

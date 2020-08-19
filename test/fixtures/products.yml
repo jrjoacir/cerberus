@@ -11,3 +11,7 @@ two:
 three:
   name: Product-3
   description: Product 3 description
+
+four:
+  name: Product-4
+  description: Product 4 description

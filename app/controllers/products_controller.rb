@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
 
   def show
     product = params[:client_id].present? ? product_by_client : Product.find(params[:id])
-    render json: params[:show_clients] == 'true' ? product.to_json(include: :clients) : product
+    render json: product.to_json(include_json)
   end
 
   def create
@@ -13,6 +13,13 @@ class ProductsController < ApplicationController
   end
 
   private
+
+  def include_json
+    includes = { include: [] }
+    includes[:include] << :clients if params[:show_clients] == 'true'
+    includes[:include] << :features if params[:show_features] == 'true'
+    includes
+  end
 
   def create_params
     params.require(:product).permit(:name, :description)
