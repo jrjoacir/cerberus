@@ -18,6 +18,4 @@ Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureS
 Read more about tests at https://guides.rubyonrails.org/testing.html
 
 - Treat with correct http status code response when try to create an exist PRODUCT-CLIENT association
-- Add list of products in Clients controller response when query string show_products=true. User defult value false in routes
-- Add list of clientes in Products controller response when query string show_clients=true. User defult value false in routes
 - Review all http status response

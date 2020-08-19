@@ -4,7 +4,8 @@ class ProductsController < ApplicationController
   end
 
   def show
-    render json: params[:client_id].present? ? product_by_client : Product.find(params[:id])
+    product = params[:client_id].present? ? product_by_client : Product.find(params[:id])
+    render json: params[:show_clients] == 'true' ? product.to_json(include: :clients) : product
   end
 
   def create
