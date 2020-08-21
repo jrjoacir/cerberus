@@ -7,3 +7,7 @@ one:
 two:
   login: login-user-2@email.com
   name: User 2
+
+three:
+  login: login-user-3@email.com
+  name: User 3

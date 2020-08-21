@@ -15,7 +15,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users, only: [:index, :show, :create]
+  resources :users, only: [:index, :show, :create] do
+    post '/roles/:role_id', to: 'users_role#create'
+  end
+
   resources :features, only: [:index, :show]
-  resources :roles, only: [:index, :show, :create]
+  resources :roles, only: [:index, :show, :create] do
+    post '/users/:user_id', to: 'users_role#create'
+  end
 end
