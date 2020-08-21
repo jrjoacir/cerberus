@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :clients, only: [:create, :index, :show] do
     resources :products, only: [:index, :show] do
       post '', to: 'clients_product#create'
+      resources :roles, only: [:index, :show]
     end
   end
 
@@ -10,9 +11,11 @@ Rails.application.routes.draw do
     resources :features, only: [:create, :index, :show]
     resources :clients, only: [:index, :show] do
       post '', to: 'clients_product#create'
+      resources :roles, only: [:index, :show]
     end
   end
 
   resources :users, only: [:index, :show, :create]
   resources :features, only: [:index, :show]
+  resources :roles, only: [:index, :show, :create]
 end

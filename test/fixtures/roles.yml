@@ -7,3 +7,7 @@ one:
 two:
   clients_products: one
   name: Role 2
+
+three:
+  clients_products: two
+  name: Role 3
