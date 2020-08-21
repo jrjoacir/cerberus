@@ -7,7 +7,7 @@ class RolesController < ApplicationController
   def show
     role = params[:product_id].present? && params[:client_id].present? ? role_by_product_and_client : Role.find(params[:id])
     return record_not_found unless role
-    render json: role
+    render json: params[:show_users] == 'true' ? role.to_json(include: :users) : role
   end
 
   def create

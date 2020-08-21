@@ -43,6 +43,13 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
     assert_equal @response.code, '200'
   end
 
+  test 'should return one role and its users' do
+    get "/roles/#{roles(:one).id}?show_users=true"
+    assert_response :success
+    assert_equal @response.body, roles(:one).to_json(include: :users)
+    assert_equal @response.code, '200'
+  end
+
   test 'should return one role find by product and client' do
     get "/products/#{clients_products(:one).product_id}/clients/#{clients_products(:one).client_id}/roles/#{clients_products(:one).roles.first.id}"
     assert_response :success
@@ -50,10 +57,24 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
     assert_equal @response.code, '200'
   end
 
+  test 'should return one role and its users find by product and client' do
+    get "/products/#{clients_products(:one).product_id}/clients/#{clients_products(:one).client_id}/roles/#{clients_products(:one).roles.first.id}?show_users=true"
+    assert_response :success
+    assert_equal @response.body, clients_products(:one).roles.first.to_json(include: :users)
+    assert_equal @response.code, '200'
+  end
+
   test 'should return one role find by client and product' do
     get "/clients/#{clients_products(:one).client_id}/products/#{clients_products(:one).product_id}/roles/#{clients_products(:one).roles.first.id}"
     assert_response :success
     assert_equal @response.body, clients_products(:one).roles.first.to_json
+    assert_equal @response.code, '200'
+  end
+
+  test 'should return one role and its users find by client and product' do
+    get "/clients/#{clients_products(:one).client_id}/products/#{clients_products(:one).product_id}/roles/#{clients_products(:one).roles.first.id}?show_users=true"
+    assert_response :success
+    assert_equal @response.body, clients_products(:one).roles.first.to_json(include: :users)
     assert_equal @response.code, '200'
   end
 

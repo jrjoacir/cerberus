@@ -20,3 +20,6 @@ Read more about tests at https://guides.rubyonrails.org/testing.html
 - Treat with correct http status code response when try to create an exist PRODUCT-CLIENT association
 - Review all http status response
 - Check attributes and column names in N:N models (roles_id, users_id, etc)
+- Show features when get a role according to show_features parameter
+- Show role, product-client and features when get an user according to show_details parameter
+- Show role, product-client and users when get a feature according to show_details parameter
