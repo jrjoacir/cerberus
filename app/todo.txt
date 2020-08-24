@@ -28,9 +28,9 @@ Read more about tests at https://guides.rubyonrails.org/testing.html
   - https://medium.com/@rafaelvicio/melhores-praticas-ao-desenvolver-api-restful-23b1865888e8
   - https://medium.com/@wssilva.willian/design-de-api-rest-9807a5b16c9f
 - Create actions to delete:
-  - Level 1:
-    - User x Role
-    - Feature x Role
+  - Level 1: -> OK
+    - User x Role -> OK
+    - Feature x Role -> OK
   - Level 2:
     - User
     - Feature

@@ -34,4 +34,38 @@ class FeaturesRoleControllerTest < ActionDispatch::IntegrationTest
       assert_equal @response.code, '422'
     end
   end
+
+  test 'should delete feature-role association' do
+    assert_difference('FeaturesRole.count', -1) do
+      delete "/features/#{features(:one).id}/roles/#{roles(:one).id}"
+      assert_response :success
+      assert_empty @response.body
+      assert_equal @response.code, '204'
+    end
+  end
+
+  test 'should delete role-feature association' do
+    assert_difference('FeaturesRole.count', -1) do
+      delete "/roles/#{roles(:one).id}/features/#{features(:one).id}"
+      assert_response :success
+      assert_empty @response.body
+      assert_equal @response.code, '204'
+    end
+  end
+
+  test 'should return 204 without delete any role-feature nonexistent association' do
+    assert_no_difference('FeaturesRole.count') do
+      delete "/roles/#{roles(:three).id}/features/#{features(:three).id}"
+      assert_empty @response.body
+      assert_equal @response.code, '204'
+    end
+  end
+
+  test 'should return 204 without delete any feature-role nonexistent association' do
+    assert_no_difference('FeaturesRole.count') do
+      delete "/features/#{features(:three).id}/roles/#{roles(:three).id}"
+      assert_empty @response.body
+      assert_equal @response.code, '204'
+    end
+  end
 end
