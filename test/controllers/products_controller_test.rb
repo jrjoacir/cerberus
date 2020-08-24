@@ -11,7 +11,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
   test 'should return all products filter by client' do
     get "/clients/#{clients(:one).id}/products"
     assert_response :success
-    assert_equal @response.body, clients_products(:one).client.products.sort_by(&:id).reverse.to_json
+    assert_equal @response.body, contracts(:one).client.products.sort_by(&:id).reverse.to_json
     assert_equal @response.code, '200'
   end
 
@@ -58,30 +58,30 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should return one product by client' do
-    get "/clients/#{clients_products(:one).client.id}/products/#{clients_products(:one).product.id}"
+    get "/clients/#{contracts(:one).client.id}/products/#{contracts(:one).product.id}"
     assert_response :success
-    assert_equal @response.body, clients_products(:one).product.to_json
+    assert_equal @response.body, contracts(:one).product.to_json
     assert_equal @response.code, '200'
   end
 
   test 'should return one product by client and its clients' do
-    get "/clients/#{clients_products(:two).client.id}/products/#{clients_products(:two).product.id}?show_clients=true"
+    get "/clients/#{contracts(:two).client.id}/products/#{contracts(:two).product.id}?show_clients=true"
     assert_response :success
-    assert_equal @response.body, clients_products(:two).product.to_json(include: :clients)
+    assert_equal @response.body, contracts(:two).product.to_json(include: :clients)
     assert_equal @response.code, '200'
   end
 
   test 'should return one product by client and its features' do
-    get "/clients/#{clients_products(:two).client.id}/products/#{clients_products(:two).product.id}?show_features=true"
+    get "/clients/#{contracts(:two).client.id}/products/#{contracts(:two).product.id}?show_features=true"
     assert_response :success
-    assert_equal @response.body, clients_products(:two).product.to_json(include: :features)
+    assert_equal @response.body, contracts(:two).product.to_json(include: :features)
     assert_equal @response.code, '200'
   end
 
   test 'should return one product by client and an empty features list' do
-    get "/clients/#{clients_products(:four).client.id}/products/#{clients_products(:four).product.id}?show_features=true"
+    get "/clients/#{contracts(:four).client.id}/products/#{contracts(:four).product.id}?show_features=true"
     assert_response :success
-    assert_equal @response.body, clients_products(:four).product.to_json(include: { features: [] })
+    assert_equal @response.body, contracts(:four).product.to_json(include: { features: [] })
     assert_equal @response.code, '200'
   end
 
@@ -93,7 +93,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should raise not found error find by client' do
-    get "/clients/#{clients_products(:one).client.id}/products/#{products(:three).id}"
+    get "/clients/#{contracts(:one).client.id}/products/#{products(:three).id}"
     assert_response :missing
     assert_equal @response.body, { message: 'Not Found' }.to_json
     assert_equal @response.code, '404'

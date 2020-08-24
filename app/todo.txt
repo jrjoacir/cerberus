@@ -21,4 +21,4 @@ Read more about tests at https://guides.rubyonrails.org/testing.html
 - Review all http status response
 - Check attributes and column names in N:N models (roles_id, users_id, etc)
 - Show features when get a role according to show_features parameter
-- Show role, product-client and users when get a feature according to show_details parameter (do we need it?)
+- Show role, contract and users when get a feature according to show_details parameter (do we need it?)

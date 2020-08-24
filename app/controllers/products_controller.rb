@@ -26,10 +26,10 @@ class ProductsController < ApplicationController
   end
 
   def products_by_client
-    ClientsProduct.where(client_id: params[:client_id]).map(&:product)
+    Contract.where(client_id: params[:client_id]).map(&:product)
   end
 
   def product_by_client
-    ClientsProduct.where(client_id: params[:client_id], product_id: params[:id]).first!.product
+    Contract.where(client_id: params[:client_id], product_id: params[:id]).first!.product
   end
 end

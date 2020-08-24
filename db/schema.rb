@@ -22,14 +22,14 @@ ActiveRecord::Schema.define(version: 2020_07_24_015349) do
     t.index ["name"], name: "index_clients_on_name", unique: true
   end
 
-  create_table "clients_products", force: :cascade do |t|
+  create_table "contracts", force: :cascade do |t|
     t.bigint "client_id", null: false
     t.bigint "product_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["client_id", "product_id"], name: "index_clients_products_on_client_id_and_product_id", unique: true
-    t.index ["client_id"], name: "index_clients_products_on_client_id"
-    t.index ["product_id"], name: "index_clients_products_on_product_id"
+    t.index ["client_id", "product_id"], name: "index_contracts_on_client_id_and_product_id", unique: true
+    t.index ["client_id"], name: "index_contracts_on_client_id"
+    t.index ["product_id"], name: "index_contracts_on_product_id"
   end
 
   create_table "features", force: :cascade do |t|
@@ -60,12 +60,12 @@ ActiveRecord::Schema.define(version: 2020_07_24_015349) do
   end
 
   create_table "roles", force: :cascade do |t|
-    t.bigint "clients_products_id", null: false
+    t.bigint "contract_id", null: false
     t.string "name", limit: 30, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["clients_products_id", "name"], name: "index_roles_on_clients_products_id_and_name", unique: true
-    t.index ["clients_products_id"], name: "index_roles_on_clients_products_id"
+    t.index ["contract_id", "name"], name: "index_roles_on_contract_id_and_name", unique: true
+    t.index ["contract_id"], name: "index_roles_on_contract_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -86,12 +86,12 @@ ActiveRecord::Schema.define(version: 2020_07_24_015349) do
     t.index ["users_id"], name: "index_users_roles_on_users_id"
   end
 
-  add_foreign_key "clients_products", "clients"
-  add_foreign_key "clients_products", "products"
+  add_foreign_key "contracts", "clients"
+  add_foreign_key "contracts", "products"
   add_foreign_key "features", "products"
   add_foreign_key "features_roles", "features", column: "features_id"
   add_foreign_key "features_roles", "roles", column: "roles_id"
-  add_foreign_key "roles", "clients_products", column: "clients_products_id"
+  add_foreign_key "roles", "contracts"
   add_foreign_key "users_roles", "roles", column: "roles_id"
   add_foreign_key "users_roles", "users", column: "users_id"
 end

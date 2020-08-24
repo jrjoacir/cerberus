@@ -11,7 +11,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
   test 'should return all clients filter by product' do
     get "/products/#{products(:one).id}/clients"
     assert_response :success
-    assert_equal @response.body, [clients_products(:one).client, clients_products(:two).client].to_json
+    assert_equal @response.body, [contracts(:one).client, contracts(:two).client].to_json
     assert_equal @response.code, '200'
   end
 
@@ -37,16 +37,16 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should return one client by product' do
-    get "/products/#{clients_products(:one).product.id}/clients/#{clients_products(:one).client.id}"
+    get "/products/#{contracts(:one).product.id}/clients/#{contracts(:one).client.id}"
     assert_response :success
-    assert_equal @response.body, clients_products(:one).client.to_json
+    assert_equal @response.body, contracts(:one).client.to_json
     assert_equal @response.code, '200'
   end
 
   test 'should return one client by product and its products' do
-    get "/products/#{clients_products(:two).product.id}/clients/#{clients_products(:two).client.id}?show_products=true"
+    get "/products/#{contracts(:two).product.id}/clients/#{contracts(:two).client.id}?show_products=true"
     assert_response :success
-    assert_equal @response.body, clients_products(:two).client.to_json(include: :products)
+    assert_equal @response.body, contracts(:two).client.to_json(include: :products)
     assert_equal @response.code, '200'
   end
 
@@ -58,7 +58,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should raise not found error find by product' do
-    get "/products/#{clients_products(:one).product.id}/clients/#{clients(:three).id}"
+    get "/products/#{contracts(:one).product.id}/clients/#{clients(:three).id}"
     assert_response :missing
     assert_equal @response.body, { message: 'Not Found' }.to_json
     assert_equal @response.code, '404'

@@ -18,18 +18,18 @@ class RolesController < ApplicationController
 
   def create_params
     fields = params.require(:role).permit(:name, :product_id, :client_id)
-    client_product = ClientsProduct.where(product_id: fields[:product_id], client_id: fields[:client_id]).first
-    { name: fields[:name], clients_products_id: client_product.id }
+    contract = Contract.where(product_id: fields[:product_id], client_id: fields[:client_id]).first
+    { name: fields[:name], contract_id: contract.id }
   end
 
   def roles_by_product_and_client
-    client_product = ClientsProduct.where(product_id: params[:product_id], client_id: params[:client_id]).first
-    client_product&.roles || []
+    contract = Contract.where(product_id: params[:product_id], client_id: params[:client_id]).first
+    contract&.roles || []
   end
 
   def role_by_product_and_client
     role = Role.find(params[:id])
-    client_product = role.clients_products
-    role if client_product.product_id == params[:product_id].to_i && client_product.client_id == params[:client_id].to_i
+    contract = role.contract
+    role if contract.product_id == params[:product_id].to_i && contract.client_id == params[:client_id].to_i
   end
 end
