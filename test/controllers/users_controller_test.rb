@@ -15,6 +15,13 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_equal @response.code, '200'
   end
 
+  test 'should return one user and its details' do
+    get "/users/#{users(:one).id}?show_details=true"
+    assert_response :success
+    assert_equal @response.body, users(:one).to_hash.merge(details: users(:one).details_hash).to_json
+    assert_equal @response.code, '200'
+  end
+
   test 'should raise not found error' do
     get "/users/-#{users(:one).id}"
     assert_response :missing

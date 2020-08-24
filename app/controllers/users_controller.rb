@@ -3,8 +3,9 @@ class UsersController < ApplicationController
     render json: User.all
   end
 
-  def show
-    render json: User.find(params[:id])
+  def show  
+    user = User.find(params[:id])
+    render json: params[:show_details] == 'true' ? user.to_hash.merge(details: user.details_hash) : user
   end
 
   def create

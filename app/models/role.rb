@@ -7,4 +7,12 @@ class Role < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { scope: :clients_products_id }, length: { maximum: 30 }
   validates :clients_products_id, presence: true, uniqueness: { scope: :name }
+
+  def product
+    @product ||= clients_products.product
+  end
+
+  def client
+    @client ||= clients_products.client
+  end
 end
