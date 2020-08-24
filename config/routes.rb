@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index, :show, :create] do
     post '/roles/:role_id', to: 'users_role#create'
+    delete '/roles/:role_id', to: 'users_role#destroy'
   end
 
   resources :features, only: [:index, :show] do
@@ -25,6 +26,7 @@ Rails.application.routes.draw do
 
   resources :roles, only: [:index, :show, :create] do
     post '/users/:user_id', to: 'users_role#create'
+    delete '/users/:user_id', to: 'users_role#destroy'
     post '/features/:feature_id', to: 'features_role#create'
   end
 end

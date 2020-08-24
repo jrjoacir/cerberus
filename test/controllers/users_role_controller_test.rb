@@ -34,4 +34,38 @@ class UsersRoleControllerTest < ActionDispatch::IntegrationTest
       assert_equal @response.code, '422'
     end
   end
+
+  test 'should delete user-role association' do
+    assert_difference('UsersRole.count', -1) do
+      delete "/users/#{users(:one).id}/roles/#{roles(:one).id}"
+      assert_response :success
+      assert_empty @response.body
+      assert_equal @response.code, '204'
+    end
+  end
+
+  test 'should delete role-user association' do
+    assert_difference('UsersRole.count', -1) do
+      delete "/roles/#{roles(:one).id}/users/#{users(:one).id}"
+      assert_response :success
+      assert_empty @response.body
+      assert_equal @response.code, '204'
+    end
+  end
+
+  test 'should return 204 without delete any role-user nonexistent association' do
+    assert_no_difference('UsersRole.count') do
+      delete "/roles/#{roles(:three).id}/users/#{users(:three).id}"
+      assert_empty @response.body
+      assert_equal @response.code, '204'
+    end
+  end
+
+  test 'should return 204 without delete any user-role nonexistent association' do
+    assert_no_difference('UsersRole.count') do
+      delete "/users/#{users(:three).id}/roles/#{roles(:three).id}"
+      assert_empty @response.body
+      assert_equal @response.code, '204'
+    end
+  end
 end
