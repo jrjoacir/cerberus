@@ -154,11 +154,37 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'should delete no role and its dependents' do
+    assert_no_difference('Role.count') do
+      assert_no_difference('UsersRole.count') do
+        assert_no_difference('FeaturesRole.count') do
+          delete "/roles/-3"
+          assert_response :missing
+          assert_equal @response.body, { message: 'Not Found' }.to_json
+          assert_equal @response.code, '404'
+        end
+      end
+    end
+  end
+
   test 'should delete no role and its dependents find by client and product' do
     assert_no_difference('Role.count') do
       assert_no_difference('UsersRole.count') do
         assert_no_difference('FeaturesRole.count') do
           delete "/clients/-1/products/-2/roles/-3"
+          assert_response :missing
+          assert_equal @response.body, { message: 'Not Found' }.to_json
+          assert_equal @response.code, '404'
+        end
+      end
+    end
+  end
+
+  test 'should delete no role and its dependents find by product and client' do
+    assert_no_difference('Role.count') do
+      assert_no_difference('UsersRole.count') do
+        assert_no_difference('FeaturesRole.count') do
+          delete "/products/-1/clients/-2/roles/-3"
           assert_response :missing
           assert_equal @response.body, { message: 'Not Found' }.to_json
           assert_equal @response.code, '404'

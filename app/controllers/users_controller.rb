@@ -12,6 +12,17 @@ class UsersController < ApplicationController
     render json: User.create!(create_params), status: 201
   end
 
+  def destroy
+    user = User.find(params[:id])
+
+    ApplicationRecord.transaction do
+      UsersRole.destroy_by(users_id: user.id)
+      user.destroy
+    end
+
+    render status: 204
+  end
+
   private
 
   def create_params

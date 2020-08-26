@@ -20,7 +20,7 @@ class RolesController < ApplicationController
     ApplicationRecord.transaction do
       UsersRole.destroy_by(roles_id: role.id)
       FeaturesRole.destroy_by(roles_id: role.id)
-      Role.destroy_by(id: role.id)
+      role.destroy
     end
 
     render status: 204

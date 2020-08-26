@@ -32,7 +32,7 @@ Read more about tests at https://guides.rubyonrails.org/testing.html
     - User x Role -> OK
     - Feature x Role -> OK
   - Level 2:
-    - User
+    - User -> OK
     - Feature
     - Role -> OK
   - Level 3:

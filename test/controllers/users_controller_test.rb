@@ -44,4 +44,26 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       assert_equal @response.code, '422'
     end
   end
+
+  test 'should delete one user and its dependents' do
+    assert_difference('User.count', -1) do
+      assert_difference('UsersRole.count', -2) do
+        delete "/users/#{users(:one).id}"
+        assert_response :success
+        assert_empty @response.body
+        assert_equal @response.code, '204'
+      end
+    end
+  end
+
+  test 'should delete no user and its dependents' do
+    assert_no_difference('User.count') do
+      assert_no_difference('UsersRole.count') do
+        delete "/users/-#{users(:one).id}"
+        assert_response :missing
+        assert_equal @response.body, { message: 'Not Found' }.to_json
+        assert_equal @response.code, '404'
+      end
+    end
+  end
 end
