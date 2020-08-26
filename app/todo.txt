@@ -34,7 +34,7 @@ Read more about tests at https://guides.rubyonrails.org/testing.html
   - Level 2:
     - User
     - Feature
-    - Role
+    - Role -> OK
   - Level 3:
     - Contract
   - Level 4:

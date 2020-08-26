@@ -2,14 +2,14 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :clients, only: [:create, :index, :show] do
     resources :products, only: [:index, :show] do
-      resources :roles, only: [:index, :show]
+      resources :roles, only: [:index, :show, :destroy]
     end
   end
 
   resources :products, only: [:create, :index, :show] do
     resources :features, only: [:create, :index, :show]
     resources :clients, only: [:index, :show] do
-      resources :roles, only: [:index, :show]
+      resources :roles, only: [:index, :show, :destroy]
     end
   end
 
@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     delete '/roles/:role_id', to: 'features_role#destroy'
   end
 
-  resources :roles, only: [:index, :show, :create] do
+  resources :roles, only: [:index, :show, :create, :destroy] do
     post '/users/:user_id', to: 'users_role#create'
     delete '/users/:user_id', to: 'users_role#destroy'
     post '/features/:feature_id', to: 'features_role#create'

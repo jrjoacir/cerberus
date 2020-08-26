@@ -114,4 +114,56 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
       assert_equal @response.code, '422'
     end
   end
+
+  test 'should delete one role and its dependents' do
+    assert_difference('Role.count', -1) do
+      assert_difference('UsersRole.count', -2) do
+        assert_difference('FeaturesRole.count', -1) do
+          delete "/roles/#{roles(:one).id}"
+          assert_response :success
+          assert_empty @response.body
+          assert_equal @response.code, '204'
+        end
+      end
+    end
+  end
+
+  test 'should delete one role and its dependents find by product and client' do
+    assert_difference('Role.count', -1) do
+      assert_difference('UsersRole.count', -2) do
+        assert_difference('FeaturesRole.count', -1) do
+          delete "/products/#{roles(:one).contract.product_id}/clients/#{roles(:one).contract.client_id}/roles/#{roles(:one).id}"
+          assert_response :success
+          assert_empty @response.body
+          assert_equal @response.code, '204'
+        end
+      end
+    end
+  end
+
+  test 'should delete one role and its dependents find by client and product' do
+    assert_difference('Role.count', -1) do
+      assert_difference('UsersRole.count', -2) do
+        assert_difference('FeaturesRole.count', -1) do
+          delete "/clients/#{roles(:one).contract.client_id}/products/#{roles(:one).contract.product_id}/roles/#{roles(:one).id}"
+          assert_response :success
+          assert_empty @response.body
+          assert_equal @response.code, '204'
+        end
+      end
+    end
+  end
+
+  test 'should delete no role and its dependents find by client and product' do
+    assert_no_difference('Role.count') do
+      assert_no_difference('UsersRole.count') do
+        assert_no_difference('FeaturesRole.count') do
+          delete "/clients/-1/products/-2/roles/-3"
+          assert_response :missing
+          assert_equal @response.body, { message: 'Not Found' }.to_json
+          assert_equal @response.code, '404'
+        end
+      end
+    end
+  end
 end

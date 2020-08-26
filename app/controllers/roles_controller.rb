@@ -14,6 +14,18 @@ class RolesController < ApplicationController
     render json: Role.create!(create_params), status: 201
   end
 
+  def destroy
+    role = params[:product_id].present? && params[:client_id].present? ? role_by_product_and_client : Role.find(params[:id])
+
+    ApplicationRecord.transaction do
+      UsersRole.destroy_by(roles_id: role.id)
+      FeaturesRole.destroy_by(roles_id: role.id)
+      Role.destroy_by(id: role.id)
+    end
+
+    render status: 204
+  end
+
   private
 
   def create_params
