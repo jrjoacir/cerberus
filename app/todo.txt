@@ -33,11 +33,11 @@ Read more about tests at https://guides.rubyonrails.org/testing.html
     - Feature x Role -> OK
   - Level 2:
     - User -> OK
-    - Feature
+    - Feature -> OK
     - Role -> OK
   - Level 3:
-    - Contract
+    - Contract -> Probably it will be not necessary to delete it
   - Level 4:
-    - Client
-    - Product
-- Create pagination in get methods
+    - Client -> Probably it will be not necessary to delete it
+    - Product -> Probably it will be not necessary to delete it
+- Create pagination in index actions

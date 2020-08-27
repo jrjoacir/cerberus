@@ -13,6 +13,17 @@ class FeaturesController < ApplicationController
     render json: Feature.create!(create_params), status: 201
   end
 
+  def destroy
+    feature = params[:product_id].present? ? feature_by_product : Feature.find(params[:id])
+
+    ApplicationRecord.transaction do
+      FeaturesRole.destroy_by(features_id: feature.id)
+      feature.destroy
+    end
+
+    render status: 204
+  end
+
   private
 
   def create_params

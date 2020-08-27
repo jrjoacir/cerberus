@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   end
 
   resources :products, only: [:create, :index, :show] do
-    resources :features, only: [:create, :index, :show]
+    resources :features, only: [:create, :index, :show, :destroy]
     resources :clients, only: [:index, :show] do
       resources :roles, only: [:index, :show, :destroy]
     end
@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     delete '/roles/:role_id', to: 'users_role#destroy'
   end
 
-  resources :features, only: [:index, :show] do
+  resources :features, only: [:index, :show, :destroy] do
     post '/roles/:role_id', to: 'features_role#create'
     delete '/roles/:role_id', to: 'features_role#destroy'
   end

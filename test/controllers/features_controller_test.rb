@@ -58,4 +58,26 @@ class FeaturesControllerTest < ActionDispatch::IntegrationTest
       assert_equal @response.code, '422'
     end
   end
+
+  test 'should delete one feature and its dependents' do
+    assert_difference('Feature.count', -1) do
+      assert_difference('FeaturesRole.count', -1) do
+        delete "/features/#{features(:one).id}"
+        assert_response :success
+        assert_empty @response.body
+        assert_equal @response.code, '204'
+      end
+    end
+  end
+
+  test 'should delete no feature and its dependents' do
+    assert_no_difference('Feature.count') do
+      assert_no_difference('FeaturesRole.count') do
+        delete "/features/-#{features(:one).id}"
+        assert_response :missing
+        assert_equal @response.body, { message: 'Not Found' }.to_json
+        assert_equal @response.code, '404'
+      end
+    end
+  end
 end
