@@ -3,6 +3,7 @@
 one:
   contract: one
   name: Role 1
+  enabled: true
 
 two:
   contract: one
@@ -11,3 +12,4 @@ two:
 three:
   contract: two
   name: Role 3
+  enabled: false

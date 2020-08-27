@@ -41,3 +41,5 @@ Read more about tests at https://guides.rubyonrails.org/testing.html
     - Client -> Probably it will be not necessary to delete it
     - Product -> Probably it will be not necessary to delete it
 - Create pagination in index actions
+- Add PUT method in Controllers
+- Create api blueprint documentation

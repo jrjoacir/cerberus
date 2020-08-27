@@ -12,16 +12,16 @@ products = { jmail: Product.create!(name: 'JMail', description: 'Jota Eletronic 
 
 users = { joacir: User.create!(login: 'joacir@email.com', name: 'Joacir'), junior: User.create!(login: 'junior@email.com', name: 'Junior'), joacirjunior: User.create!(login: 'joacir.junior@email.com.br', name: 'Joacir Junior'), oliveira: User.create!(login: 'oliveira@email.com.br', name: 'Oliveira'), santos: User.create!(login: 'santos@email.co.jp', name: 'Santos') }
 
-google_products = { jmail: Contract.create!(product_id: products[:jmail].id, client_id: clients[:google].id), jvideos: Contract.create!(product_id: products[:jvideos].id, client_id: clients[:google].id) }
-facebook_products = { jphotos: Contract.create!(product_id: products[:jphotos].id, client_id: clients[:facebook].id) }
+google_products = { jmail: Contract.create!(product_id: products[:jmail].id, client_id: clients[:google].id, enabled: true), jvideos: Contract.create!(product_id: products[:jvideos].id, client_id: clients[:google].id, enabled: false) }
+facebook_products = { jphotos: Contract.create!(product_id: products[:jphotos].id, client_id: clients[:facebook].id, enabled: true) }
 
-jvideos_features = { post: Feature.create!(product_id: products[:jvideos].id, name: 'Post Videos'), watch: Feature.create!(product_id: products[:jvideos].id, name: 'Watch Videos') }
-jmail_features = { send: Feature.create!(product_id: products[:jmail].id, name: 'Send Email'), remove: Feature.create!(product_id: products[:jmail].id, name: 'Remove Email') }
-jphotos_features = { post: Feature.create!(product_id: products[:jphotos].id, name: 'Post Photo'), like: Feature.create!(product_id: products[:jphotos].id, name: 'Like Post') }
+jvideos_features = { post: Feature.create!(product_id: products[:jvideos].id, name: 'Post Videos', enabled: true), watch: Feature.create!(product_id: products[:jvideos].id, name: 'Watch Videos', enabled: true) }
+jmail_features = { send: Feature.create!(product_id: products[:jmail].id, name: 'Send Email', enabled: true), remove: Feature.create!(product_id: products[:jmail].id, name: 'Remove Email', read_only: false) }
+jphotos_features = { post: Feature.create!(product_id: products[:jphotos].id, name: 'Post Photo', read_only: true, enabled: false), like: Feature.create!(product_id: products[:jphotos].id, name: 'Like Post') }
 
-jmail_roles = { admin: Role.create!(name: 'admin', contract_id: google_products[:jmail].id), normal: Role.create!(name: 'normal', contract_id: google_products[:jmail].id)}
-jvideos_roles = { admin: Role.create!(name: 'master', contract_id: google_products[:jvideos].id), normal: Role.create!(name: 'normal', contract_id: google_products[:jvideos].id)}
-jphotos_roles = { liker: Role.create!(name: 'liker', contract_id: facebook_products[:jphotos].id), poster: Role.create!(name: 'poster', contract_id: facebook_products[:jphotos].id) }
+jmail_roles = { admin: Role.create!(name: 'admin', contract_id: google_products[:jmail].id), normal: Role.create!(name: 'normal', contract_id: google_products[:jmail].id, enabled: true)}
+jvideos_roles = { admin: Role.create!(name: 'master', contract_id: google_products[:jvideos].id, enabled: true), normal: Role.create!(name: 'normal', contract_id: google_products[:jvideos].id, enabled: false)}
+jphotos_roles = { liker: Role.create!(name: 'liker', contract_id: facebook_products[:jphotos].id, enabled: true), poster: Role.create!(name: 'poster', contract_id: facebook_products[:jphotos].id) }
 
 # jvideos_features_roles
 FeaturesRole.create!(features_id: jvideos_features[:post].id, roles_id: jvideos_roles[:admin].id)

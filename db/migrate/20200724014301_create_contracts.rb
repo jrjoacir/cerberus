@@ -3,6 +3,7 @@ class CreateContracts < ActiveRecord::Migration[6.0]
     create_table :contracts do |t|
       t.references :client, null: false, foreign_key: true
       t.references :product, null: false, foreign_key: true
+      t.boolean :enabled, :default => false, null: false
 
       t.timestamps
     end

@@ -3,19 +3,27 @@
 one:
   product: one
   name: Feature-1
+  enabled: true
+  read_only: false
 
 two:
   product: one
   name: Feature-2
+  enabled: true
+  read_only: false
 
 three:
   product: two
   name: Feature-3
+  read_only: true
 
 four:
   product: two
   name: Feature-4
+  enabled: false
+  read_only: false
 
 five:
   product: two
   name: Feature-5
+  enabled: true

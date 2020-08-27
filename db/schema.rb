@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2020_07_24_015349) do
   create_table "contracts", force: :cascade do |t|
     t.bigint "client_id", null: false
     t.bigint "product_id", null: false
+    t.boolean "enabled", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["client_id", "product_id"], name: "index_contracts_on_client_id_and_product_id", unique: true
@@ -35,6 +36,8 @@ ActiveRecord::Schema.define(version: 2020_07_24_015349) do
   create_table "features", force: :cascade do |t|
     t.bigint "product_id", null: false
     t.string "name", limit: 30, null: false
+    t.boolean "enabled", default: false, null: false
+    t.boolean "read_only", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["product_id", "name"], name: "index_features_on_product_id_and_name", unique: true
@@ -62,6 +65,7 @@ ActiveRecord::Schema.define(version: 2020_07_24_015349) do
   create_table "roles", force: :cascade do |t|
     t.bigint "contract_id", null: false
     t.string "name", limit: 30, null: false
+    t.boolean "enabled", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["contract_id", "name"], name: "index_roles_on_contract_id_and_name", unique: true

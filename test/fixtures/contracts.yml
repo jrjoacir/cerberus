@@ -3,15 +3,19 @@
 one:
   client: one
   product: one
+  enabled: true
 
 two:
   client: two
   product: one
+  enabled: true
 
 three:
   client: two
   product: two
+  enabled: true
 
 four:
   client: one
   product: four
+  enabled: false

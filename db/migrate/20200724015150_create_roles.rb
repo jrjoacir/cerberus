@@ -3,6 +3,7 @@ class CreateRoles < ActiveRecord::Migration[6.0]
     create_table :roles do |t|
       t.references :contract, null: false, foreign_key: true
       t.string :name, limit: 30, null: false
+      t.boolean :enabled, :default => false, null: false
 
       t.timestamps
     end
