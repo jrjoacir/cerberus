@@ -6,6 +6,6 @@ class ContractsController < ApplicationController
   private
 
   def create_params
-    params.permit(:product_id, :client_id)
+    params.permit(:product_id, :client_id, :enabled)
   end
 end

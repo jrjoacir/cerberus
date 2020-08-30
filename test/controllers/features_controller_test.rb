@@ -45,7 +45,7 @@ class FeaturesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create a feature' do
     assert_difference('Feature.count', 1) do
-      post "/products/#{products(:one).id}/features", params: { feature: { name: 'feature-test' } }
+      post "/products/#{products(:one).id}/features", params: { feature: { name: 'feature-test', enabled: true, read_only: false } }
       assert_response :success
       assert_equal @response.code, '201'
     end
@@ -53,7 +53,7 @@ class FeaturesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should raise unprocessable entity error on create a feature' do
     assert_no_difference('Feature.count') do
-      post "/products/#{products(:one).id}/features", params: { feature: { name: features(:two).name } }
+      post "/products/#{products(:one).id}/features", params: { feature: { name: features(:two).name, enabled: true, read_only: false } }
       assert_equal @response.body, { message: 'Unprocessable Entity' }.to_json
       assert_equal @response.code, '422'
     end
@@ -83,19 +83,21 @@ class FeaturesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should update a feature' do
     assert_no_difference('Feature.count') do
-      request_body = { name: 'Feature-test-2', product_id: products(:two).id }
+      request_body = { name: 'Feature-test-2', product_id: products(:two).id, enabled: !features(:one).enabled, read_only: !features(:one).read_only }
       put "/features/#{features(:one).id}", params: { feature: request_body }
       body_hash = JSON.parse(@response.body).deep_symbolize_keys
       assert_response :success
       assert_equal body_hash[:name], request_body[:name]
       assert_equal body_hash[:product_id], request_body[:product_id]
+      assert_equal body_hash[:enabled], !features(:one).enabled
+      assert_equal body_hash[:read_only], !features(:one).read_only
       assert_equal @response.code, '200'
     end
   end
 
   test 'should raise unprocessable entity error on update a feature with a duplicate name' do
     assert_no_difference('Feature.count') do
-      put "/features/#{features(:one).id}", params: { feature: { name: features(:two).name } }
+      put "/features/#{features(:one).id}", params: { feature: { name: features(:two).name, enabled: true, read_only: true } }
       assert_equal @response.body, { message: 'Unprocessable Entity' }.to_json
       assert_equal @response.code, '422'
     end

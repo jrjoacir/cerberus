@@ -33,7 +33,7 @@ class FeaturesController < ApplicationController
   private
 
   def valid_params
-    params.require(:feature).permit(:product_id, :name).merge(params.permit(:product_id))
+    params.require(:feature).permit(:product_id, :name, :enabled, :read_only).merge(params.permit(:product_id))
   end
 
   def features_by_product
