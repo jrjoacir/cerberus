@@ -11,7 +11,7 @@ class RolesController < ApplicationController
   end
 
   def create
-    render json: Role.create!(create_params), status: 201
+    render json: Role.create!(valid_params), status: 201
   end
 
   def destroy
@@ -26,9 +26,15 @@ class RolesController < ApplicationController
     render status: 204
   end
 
+  def update
+    role = Role.find(params[:id])
+    role.update!(valid_params)
+    render json: role, status: 200
+  end
+
   private
 
-  def create_params
+  def valid_params
     fields = params.require(:role).permit(:name, :product_id, :client_id)
     contract = Contract.where(product_id: fields[:product_id], client_id: fields[:client_id]).first
     { name: fields[:name], contract_id: contract.id }
