@@ -79,4 +79,23 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
       assert_equal @response.code, '422'
     end
   end
+
+  test 'should update a client' do
+    assert_no_difference('Client.count') do
+      request_body = { name: 'Client-test-2' }
+      put "/clients/#{clients(:one).id}", params: { client: request_body }
+      body_hash = JSON.parse(@response.body).deep_symbolize_keys
+      assert_response :success
+      assert_equal body_hash[:name], request_body[:name]
+      assert_equal @response.code, '200'
+    end
+  end
+
+  test 'should raise unprocessable entity error on update a client with a duplicate name' do
+    assert_no_difference('Client.count') do
+      put "/clients/#{clients(:one).id}", params: { client: { name: clients(:two).name } }
+      assert_equal @response.body, { message: 'Unprocessable Entity' }.to_json
+      assert_equal @response.code, '422'
+    end
+  end
 end

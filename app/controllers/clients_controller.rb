@@ -9,12 +9,18 @@ class ClientsController < ApplicationController
   end
 
   def create
-    render json: Client.create!(create_params), status: 201
+    render json: Client.create!(valid_params), status: 201
+  end
+
+  def update
+    client = params[:product_id].present? ? client_by_product : Client.find(params[:id])
+    client.update!(valid_params)
+    render json: client, status: 200
   end
 
   private
 
-  def create_params
+  def valid_params
     params.require(:client).permit(:name)
   end
 

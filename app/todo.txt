@@ -42,4 +42,12 @@ Read more about tests at https://guides.rubyonrails.org/testing.html
     - Product -> Probably it will be not necessary to delete it
 - Create pagination in index actions
 - Add PUT method in Controllers
+  - Client -> OK
+  - Product
+  - User
+  - Feature
+  - Role
+- Create new users routes
+  - users/1/contracts -> show all contracts an user has access -> create parameters: show_product_details and show_client_details
+  - users/1/contracts/1/features -> show all features an user has access in a contract
 - Create api blueprint documentation
