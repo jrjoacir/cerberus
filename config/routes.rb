@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   resources :contracts, only: [:create]
 
-  resources :users, only: [:index, :show, :create, :destroy] do
+  resources :users, only: [:index, :show, :create, :destroy, :update] do
     post '/roles/:role_id', to: 'users_role#create'
     delete '/roles/:role_id', to: 'users_role#destroy'
   end

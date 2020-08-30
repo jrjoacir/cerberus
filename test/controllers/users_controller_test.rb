@@ -66,4 +66,24 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       end
     end
   end
+
+  test 'should update a user' do
+    assert_no_difference('User.count') do
+      request_body = { name: 'User-test-2', login: 'user-test-2-login' }
+      put "/users/#{users(:one).id}", params: { user: request_body }
+      body_hash = JSON.parse(@response.body).deep_symbolize_keys
+      assert_response :success
+      assert_equal body_hash[:name], request_body[:name]
+      assert_equal body_hash[:login], request_body[:login]
+      assert_equal @response.code, '200'
+    end
+  end
+
+  test 'should raise unprocessable entity error on update an user with a duplicate login' do
+    assert_no_difference('User.count') do
+      put "/users/#{users(:one).id}", params: { user: { login: users(:two).login } }
+      assert_equal @response.body, { message: 'Unprocessable Entity' }.to_json
+      assert_equal @response.code, '422'
+    end
+  end
 end

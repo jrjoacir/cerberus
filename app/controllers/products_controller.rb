@@ -13,7 +13,7 @@ class ProductsController < ApplicationController
   end
 
   def update
-    product = params[:client_id].present? ? product_by_client : Product.find(params[:id])
+    product = Product.find(params[:id])
     product.update!(valid_params)
     render json: product, status: 200
   end

@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    render json: User.create!(create_params), status: 201
+    render json: User.create!(valid_params), status: 201
   end
 
   def destroy
@@ -23,9 +23,15 @@ class UsersController < ApplicationController
     render status: 204
   end
 
+  def update
+    user = User.find(params[:id])
+    user.update!(valid_params)
+    render json: user, status: 200
+  end
+
   private
 
-  def create_params
+  def valid_params
     params.require(:user).permit(:login, :name)
   end
 end
