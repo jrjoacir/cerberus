@@ -9,7 +9,13 @@ class ProductsController < ApplicationController
   end
 
   def create
-    render json: Product.create!(create_params), status: 201
+    render json: Product.create!(valid_params), status: 201
+  end
+
+  def update
+    product = params[:client_id].present? ? product_by_client : Product.find(params[:id])
+    product.update!(valid_params)
+    render json: product, status: 200
   end
 
   private
@@ -21,7 +27,7 @@ class ProductsController < ApplicationController
     includes
   end
 
-  def create_params
+  def valid_params
     params.require(:product).permit(:name, :description)
   end
 

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :products, only: [:create, :index, :show] do
+  resources :products, only: [:create, :index, :show, :update] do
     resources :features, only: [:create, :index, :show, :destroy]
     resources :clients, only: [:index, :show] do
       resources :roles, only: [:index, :show, :destroy]

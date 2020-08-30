@@ -43,7 +43,7 @@ Read more about tests at https://guides.rubyonrails.org/testing.html
 - Create pagination in index actions
 - Add PUT method in Controllers
   - Client -> OK
-  - Product
+  - Product -> OK
   - User
   - Feature
   - Role
