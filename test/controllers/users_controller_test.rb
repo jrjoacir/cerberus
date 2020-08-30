@@ -67,7 +67,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'should update a user' do
+  test 'should update an user' do
     assert_no_difference('User.count') do
       request_body = { name: 'User-test-2', login: 'user-test-2-login' }
       put "/users/#{users(:one).id}", params: { user: request_body }

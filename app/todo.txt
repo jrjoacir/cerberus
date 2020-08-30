@@ -45,7 +45,7 @@ Read more about tests at https://guides.rubyonrails.org/testing.html
   - Client -> OK
   - Product -> OK
   - User -> OK
-  - Feature
+  - Feature -> OK
   - Role
 - Create new users routes
   - users/1/contracts -> show all contracts an user has access -> create parameters: show_product_details and show_client_details

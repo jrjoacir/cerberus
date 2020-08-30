@@ -10,7 +10,7 @@ class FeaturesController < ApplicationController
   end
 
   def create
-    render json: Feature.create!(create_params), status: 201
+    render json: Feature.create!(valid_params), status: 201
   end
 
   def destroy
@@ -24,9 +24,15 @@ class FeaturesController < ApplicationController
     render status: 204
   end
 
+  def update
+    feature = Feature.find(params[:id])
+    feature.update!(valid_params)
+    render json: feature, status: 200
+  end
+
   private
 
-  def create_params
+  def valid_params
     params.require(:feature).permit(:product_id, :name).merge(params.permit(:product_id))
   end
 
