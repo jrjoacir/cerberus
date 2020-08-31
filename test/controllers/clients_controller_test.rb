@@ -66,7 +66,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create a client' do
     assert_difference('Client.count', 1) do
-      post '/clients', params: { client: { name: 'Client-test' } }
+      post '/clients', params: { client: { name: 'Client-test' } }.to_json, headers: headers
       assert_response :success
       assert_equal @response.code, '201'
     end
@@ -74,7 +74,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should raise unprocessable entity error on create a client' do
     assert_no_difference('Client.count') do
-      post '/clients', params: { client: { name: clients(:one).name } }
+      post '/clients', params: { client: { name: clients(:one).name } }.to_json, headers: headers
       assert_equal @response.body, { message: 'Unprocessable Entity' }.to_json
       assert_equal @response.code, '422'
     end
@@ -83,7 +83,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
   test 'should update a client' do
     assert_no_difference('Client.count') do
       request_body = { name: 'Client-test-2' }
-      put "/clients/#{clients(:one).id}", params: { client: request_body }
+      put "/clients/#{clients(:one).id}", params: { client: request_body }.to_json, headers: headers
       body_hash = JSON.parse(@response.body).deep_symbolize_keys
       assert_response :success
       assert_equal body_hash[:name], request_body[:name]
@@ -93,7 +93,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should raise unprocessable entity error on update a client with a duplicate name' do
     assert_no_difference('Client.count') do
-      put "/clients/#{clients(:one).id}", params: { client: { name: clients(:two).name } }
+      put "/clients/#{clients(:one).id}", params: { client: { name: clients(:two).name } }.to_json, headers: headers
       assert_equal @response.body, { message: 'Unprocessable Entity' }.to_json
       assert_equal @response.code, '422'
     end

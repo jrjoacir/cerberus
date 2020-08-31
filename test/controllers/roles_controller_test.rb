@@ -101,7 +101,7 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create an role' do
     assert_difference('Role.count', 1) do
-      post '/roles', params: { role: { name: 'create-role-test', product_id: contracts(:four).product_id, client_id: contracts(:four).client_id, enabled: true } }
+      post '/roles', params: { role: { name: 'create-role-test', product_id: contracts(:four).product_id, client_id: contracts(:four).client_id, enabled: true } }.to_json, headers: headers
       assert_response :success
       assert_equal @response.code, '201'
     end
@@ -109,7 +109,7 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should raise unprocessable entity error on create an role' do
     assert_no_difference('Role.count') do
-      post '/roles', params: { role: { name: roles(:one).name, product_id: roles(:one).contract.product_id, client_id: roles(:one).contract.client_id, enabled: true } }
+      post '/roles', params: { role: { name: roles(:one).name, product_id: roles(:one).contract.product_id, client_id: roles(:one).contract.client_id, enabled: true } }.to_json, headers: headers
       assert_equal @response.body, { message: 'Unprocessable Entity' }.to_json
       assert_equal @response.code, '422'
     end
@@ -196,7 +196,7 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
   test 'should update a role' do
     assert_no_difference('Role.count') do
       request_body = { name: 'Role-test-2', product_id: contracts(:two).product_id, client_id: contracts(:two).client_id, enabled: !roles(:one).enabled }
-      put "/roles/#{roles(:one).id}", params: { role: request_body }
+      put "/roles/#{roles(:one).id}", params: { role: request_body }.to_json, headers: headers
       body_hash = JSON.parse(@response.body).deep_symbolize_keys
       assert_response :success
       assert_equal body_hash[:name], request_body[:name]
@@ -208,7 +208,7 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should raise unprocessable entity error on update a feature with a duplicate name' do
     assert_no_difference('Feature.count') do
-      put "/features/#{features(:one).id}", params: { feature: { name: features(:two).name } }
+      put "/features/#{features(:one).id}", params: { feature: { name: features(:two).name } }.to_json, headers: headers
       assert_equal @response.body, { message: 'Unprocessable Entity' }.to_json
       assert_equal @response.code, '422'
     end

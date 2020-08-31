@@ -48,9 +48,9 @@ Read more about tests at https://guides.rubyonrails.org/testing.html
   - Feature -> OK
   - Role -> OK
 - Fix boolean fields. Field enabled and read_only must be compared to string 'true'
-  - Roles
-  - Contracts
-  - Features
+  - Roles -> OK
+  - Contracts -> OK
+  - Features -> OK
 - Create new users routes
   - users/1/contracts -> show all contracts an user has access -> create parameters: show_product_details and show_client_details
   - users/1/contracts/1/features -> show all features an user has access in a contract
