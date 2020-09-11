@@ -5,12 +5,6 @@ class FeaturesController < ApplicationController
     render json: Feature.all
   end
 
-  def features_by_user_and_contract
-    user = User.find(params[:user_id])
-    roles = user.roles.select{|role| role.contract_id == params[:contract_id].to_i}
-    roles.map(&:features).flatten
-  end
-
   def show
     feature = params[:product_id].present? ? feature_by_product : Feature.find(params[:id])
     return record_not_found unless feature
@@ -50,5 +44,11 @@ class FeaturesController < ApplicationController
 
   def feature_by_product
     Feature.where(product_id: params[:product_id], id: params[:id]).first
+  end
+
+  def features_by_user_and_contract
+    user = User.find(params[:user_id])
+    roles = user.roles.select{|role| role.contract_id == params[:contract_id].to_i}
+    roles.map(&:features).flatten
   end
 end
