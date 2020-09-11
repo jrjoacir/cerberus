@@ -13,3 +13,13 @@ three:
   contract: two
   name: Role 3
   enabled: false
+
+four:
+  contract: two
+  name: Role 4
+  enabled: true
+
+five:
+  contract: one
+  name: Role 5
+  enabled: true

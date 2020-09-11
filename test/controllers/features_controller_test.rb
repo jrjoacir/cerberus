@@ -15,6 +15,27 @@ class FeaturesControllerTest < ActionDispatch::IntegrationTest
     assert_equal @response.code, '200'
   end
 
+  test 'should return empty list features filter by product' do
+    get "/products/-999/features"
+    assert_response :success
+    assert_equal @response.body, [].to_json
+    assert_equal @response.code, '200'
+  end
+
+  test 'should return all features filter by contract and user' do
+    get "/users/#{users(:four).id}/contracts/#{contracts(:one).id}/features"
+    assert_response :success
+    assert_equal @response.body, [features_roles(:three).features, features_roles(:four).features].to_json
+    assert_equal @response.code, '200'
+  end
+
+  test 'should return empty list features filter by contract and user' do
+    get "/users/#{users(:five).id}/contracts/#{contracts(:two).id}/features"
+    assert_response :success
+    assert_equal @response.body, [].to_json
+    assert_equal @response.code, '200'
+  end
+
   test 'should return one feature' do
     get "/features/#{features(:one).id}"
     assert_response :success
@@ -61,7 +82,7 @@ class FeaturesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should delete one feature and its dependents' do
     assert_difference('Feature.count', -1) do
-      assert_difference('FeaturesRole.count', -1) do
+      assert_difference('FeaturesRole.count', -2) do
         delete "/features/#{features(:one).id}"
         assert_response :success
         assert_empty @response.body
