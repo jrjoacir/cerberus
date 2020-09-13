@@ -16,7 +16,7 @@ class FeaturesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should return empty list features filter by product' do
-    get "/products/-999/features"
+    get '/products/-999/features'
     assert_response :success
     assert_equal @response.body, [].to_json
     assert_equal @response.code, '200'
@@ -66,7 +66,9 @@ class FeaturesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create a feature' do
     assert_difference('Feature.count', 1) do
-      post "/products/#{products(:one).id}/features", params: { feature: { name: 'feature-test', enabled: true, read_only: false } }.to_json, headers: headers
+      post "/products/#{products(:one).id}/features",
+           params: { feature: { name: 'feature-test', enabled: true, read_only: false } }.to_json,
+           headers: headers
       assert_response :success
       assert_equal @response.code, '201'
     end
@@ -74,7 +76,9 @@ class FeaturesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should raise unprocessable entity error on create a feature' do
     assert_no_difference('Feature.count') do
-      post "/products/#{products(:one).id}/features", params: { feature: { name: features(:two).name, enabled: true, read_only: false } }.to_json, headers: headers
+      post "/products/#{products(:one).id}/features",
+           params: { feature: { name: features(:two).name, enabled: true, read_only: false } }.to_json,
+           headers: headers
       assert_equal @response.body, { message: 'Unprocessable Entity' }.to_json
       assert_equal @response.code, '422'
     end
@@ -104,7 +108,8 @@ class FeaturesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should update a feature' do
     assert_no_difference('Feature.count') do
-      request_body = { name: 'Feature-test-2', product_id: products(:two).id, enabled: !features(:one).enabled, read_only: !features(:one).read_only }
+      request_body = { name: 'Feature-test-2', product_id: products(:two).id,
+                       enabled: !features(:one).enabled, read_only: !features(:one).read_only }
       put "/features/#{features(:one).id}", params: { feature: request_body }.to_json, headers: headers
       body_hash = JSON.parse(@response.body).deep_symbolize_keys
       assert_response :success
@@ -118,7 +123,9 @@ class FeaturesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should raise unprocessable entity error on update a feature with a duplicate name' do
     assert_no_difference('Feature.count') do
-      put "/features/#{features(:one).id}", params: { feature: { name: features(:two).name, enabled: true, read_only: true } }.to_json, headers: headers
+      put "/features/#{features(:one).id}",
+          params: { feature: { name: features(:two).name, enabled: true, read_only: true } }.to_json,
+          headers: headers
       assert_equal @response.body, { message: 'Unprocessable Entity' }.to_json
       assert_equal @response.code, '422'
     end

@@ -51,28 +51,40 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should return one role find by product and client' do
-    get "/products/#{contracts(:one).product_id}/clients/#{contracts(:one).client_id}/roles/#{contracts(:one).roles.first.id}"
+    product_id = contracts(:one).product_id
+    client_id = contracts(:one).client_id
+    role_id = contracts(:one).roles.first.id
+    get "/products/#{product_id}/clients/#{client_id}/roles/#{role_id}"
     assert_response :success
     assert_equal @response.body, contracts(:one).roles.first.to_json
     assert_equal @response.code, '200'
   end
 
   test 'should return one role and its users find by product and client' do
-    get "/products/#{contracts(:one).product_id}/clients/#{contracts(:one).client_id}/roles/#{contracts(:one).roles.first.id}?show_users=true"
+    product_id = contracts(:one).product_id
+    client_id = contracts(:one).client_id
+    role_id = contracts(:one).roles.first.id
+    get "/products/#{product_id}/clients/#{client_id}/roles/#{role_id}?show_users=true"
     assert_response :success
     assert_equal @response.body, contracts(:one).roles.first.to_json(include: :users)
     assert_equal @response.code, '200'
   end
 
   test 'should return one role find by client and product' do
-    get "/clients/#{contracts(:one).client_id}/products/#{contracts(:one).product_id}/roles/#{contracts(:one).roles.first.id}"
+    product_id = contracts(:one).product_id
+    client_id = contracts(:one).client_id
+    role_id = contracts(:one).roles.first.id
+    get "/clients/#{client_id}/products/#{product_id}/roles/#{role_id}"
     assert_response :success
     assert_equal @response.body, contracts(:one).roles.first.to_json
     assert_equal @response.code, '200'
   end
 
   test 'should return one role and its users find by client and product' do
-    get "/clients/#{contracts(:one).client_id}/products/#{contracts(:one).product_id}/roles/#{contracts(:one).roles.first.id}?show_users=true"
+    client_id = contracts(:one).client_id
+    product_id = contracts(:one).product_id
+    role_id = contracts(:one).roles.first.id
+    get "/clients/#{client_id}/products/#{product_id}/roles/#{role_id}?show_users=true"
     assert_response :success
     assert_equal @response.body, contracts(:one).roles.first.to_json(include: :users)
     assert_equal @response.code, '200'
@@ -86,14 +98,20 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should raise not found error when try to find role by product and client' do
-    get "/products/#{contracts(:one).product_id}/clients/#{contracts(:one).client_id}/roles/#{contracts(:two).roles.first.id}"
+    client_id = contracts(:one).client_id
+    product_id = contracts(:one).product_id
+    role_id = contracts(:two).roles.first.id
+    get "/products/#{product_id}/clients/#{client_id}/roles/#{role_id}"
     assert_response :missing
     assert_equal @response.body, { message: 'Not Found' }.to_json
     assert_equal @response.code, '404'
   end
 
   test 'should raise not found error when try to find role by client and product' do
-    get "/clients/#{contracts(:one).client_id}/products/#{contracts(:one).product_id}/roles/#{contracts(:two).roles.first.id}"
+    client_id = contracts(:one).client_id
+    product_id = contracts(:one).product_id
+    role_id = contracts(:two).roles.first.id
+    get "/clients/#{client_id}/products/#{product_id}/roles/#{role_id}"
     assert_response :missing
     assert_equal @response.body, { message: 'Not Found' }.to_json
     assert_equal @response.code, '404'
@@ -101,7 +119,10 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create an role' do
     assert_difference('Role.count', 1) do
-      post '/roles', params: { role: { name: 'create-role-test', product_id: contracts(:four).product_id, client_id: contracts(:four).client_id, enabled: true } }.to_json, headers: headers
+      post '/roles',
+           params: { role: { name: 'create-role-test', product_id: contracts(:four).product_id,
+                             client_id: contracts(:four).client_id, enabled: true } }.to_json,
+           headers: headers
       assert_response :success
       assert_equal @response.code, '201'
     end
@@ -109,7 +130,10 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should raise unprocessable entity error on create an role' do
     assert_no_difference('Role.count') do
-      post '/roles', params: { role: { name: roles(:one).name, product_id: roles(:one).contract.product_id, client_id: roles(:one).contract.client_id, enabled: true } }.to_json, headers: headers
+      post '/roles',
+           params: { role: { name: roles(:one).name, product_id: roles(:one).contract.product_id,
+                             client_id: roles(:one).contract.client_id, enabled: true } }.to_json,
+           headers: headers
       assert_equal @response.body, { message: 'Unprocessable Entity' }.to_json
       assert_equal @response.code, '422'
     end
@@ -132,7 +156,10 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
     assert_difference('Role.count', -1) do
       assert_difference('UsersRole.count', -2) do
         assert_difference('FeaturesRole.count', -1) do
-          delete "/products/#{roles(:one).contract.product_id}/clients/#{roles(:one).contract.client_id}/roles/#{roles(:one).id}"
+          client_id = roles(:one).contract.client_id
+          product_id = roles(:one).contract.product_id
+          role_id = roles(:one).id
+          delete "/products/#{product_id}/clients/#{client_id}/roles/#{role_id}"
           assert_response :success
           assert_empty @response.body
           assert_equal @response.code, '204'
@@ -145,7 +172,10 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
     assert_difference('Role.count', -1) do
       assert_difference('UsersRole.count', -2) do
         assert_difference('FeaturesRole.count', -1) do
-          delete "/clients/#{roles(:one).contract.client_id}/products/#{roles(:one).contract.product_id}/roles/#{roles(:one).id}"
+          client_id = roles(:one).contract.client_id
+          product_id = roles(:one).contract.product_id
+          role_id = roles(:one).id
+          delete "/clients/#{client_id}/products/#{product_id}/roles/#{role_id}"
           assert_response :success
           assert_empty @response.body
           assert_equal @response.code, '204'
@@ -158,7 +188,7 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference('Role.count') do
       assert_no_difference('UsersRole.count') do
         assert_no_difference('FeaturesRole.count') do
-          delete "/roles/-3"
+          delete '/roles/-3'
           assert_response :missing
           assert_equal @response.body, { message: 'Not Found' }.to_json
           assert_equal @response.code, '404'
@@ -171,7 +201,7 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference('Role.count') do
       assert_no_difference('UsersRole.count') do
         assert_no_difference('FeaturesRole.count') do
-          delete "/clients/-1/products/-2/roles/-3"
+          delete '/clients/-1/products/-2/roles/-3'
           assert_response :missing
           assert_equal @response.body, { message: 'Not Found' }.to_json
           assert_equal @response.code, '404'
@@ -184,7 +214,7 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference('Role.count') do
       assert_no_difference('UsersRole.count') do
         assert_no_difference('FeaturesRole.count') do
-          delete "/products/-1/clients/-2/roles/-3"
+          delete '/products/-1/clients/-2/roles/-3'
           assert_response :missing
           assert_equal @response.body, { message: 'Not Found' }.to_json
           assert_equal @response.code, '404'
@@ -195,7 +225,8 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should update a role' do
     assert_no_difference('Role.count') do
-      request_body = { name: 'Role-test-2', product_id: contracts(:two).product_id, client_id: contracts(:two).client_id, enabled: !roles(:one).enabled }
+      request_body = { name: 'Role-test-2', product_id: contracts(:two).product_id,
+                       client_id: contracts(:two).client_id, enabled: !roles(:one).enabled }
       put "/roles/#{roles(:one).id}", params: { role: request_body }.to_json, headers: headers
       body_hash = JSON.parse(@response.body).deep_symbolize_keys
       assert_response :success

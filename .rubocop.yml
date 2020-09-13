@@ -1,0 +1,20 @@
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - 'config/routes.rb'
+
+Metrics/ClassLength:
+  Exclude:
+    - 'test/**/*'
+
+AllCops:   
+  Exclude:     
+    - 'db/schema.rb'

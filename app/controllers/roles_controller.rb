@@ -5,8 +5,10 @@ class RolesController < ApplicationController
   end
 
   def show
-    role = params[:product_id].present? && params[:client_id].present? ? role_by_product_and_client : Role.find(params[:id])
+    id = params[:id]
+    role = params[:product_id].present? && params[:client_id].present? ? role_by_product_and_client : Role.find(id)
     return record_not_found unless role
+
     render json: params[:show_users] == 'true' ? role.to_json(include: :users) : role
   end
 
@@ -15,14 +17,9 @@ class RolesController < ApplicationController
   end
 
   def destroy
-    role = params[:product_id].present? && params[:client_id].present? ? role_by_product_and_client : Role.find(params[:id])
-
-    ApplicationRecord.transaction do
-      UsersRole.destroy_by(roles_id: role.id)
-      FeaturesRole.destroy_by(roles_id: role.id)
-      role.destroy
-    end
-
+    id = params[:id]
+    role = params[:product_id].present? && params[:client_id].present? ? role_by_product_and_client : Role.find(id)
+    role.destroy
     render status: 204
   end
 

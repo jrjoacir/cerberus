@@ -5,7 +5,8 @@ class FeaturesRoleControllerTest < ActionDispatch::IntegrationTest
     assert_difference('FeaturesRole.count', 1) do
       post "/features/#{features(:three).id}/roles/#{roles(:three).id}"
       assert_response :success
-      assert_equal @response.body, FeaturesRole.where(features_id: features(:three).id, roles_id: roles(:three).id).first.to_json
+      expect_features_role = FeaturesRole.where(features_id: features(:three).id, roles_id: roles(:three).id).first
+      assert_equal @response.body, expect_features_role.to_json
       assert_equal @response.code, '201'
     end
   end
@@ -14,7 +15,8 @@ class FeaturesRoleControllerTest < ActionDispatch::IntegrationTest
     assert_difference('FeaturesRole.count', 1) do
       post "/roles/#{roles(:three).id}/features/#{features(:three).id}"
       assert_response :success
-      assert_equal @response.body, FeaturesRole.where(features_id: features(:three).id, roles_id: roles(:three).id).first.to_json
+      expect_features_role = FeaturesRole.where(features_id: features(:three).id, roles_id: roles(:three).id).first
+      assert_equal @response.body, expect_features_role.to_json
       assert_equal @response.code, '201'
     end
   end

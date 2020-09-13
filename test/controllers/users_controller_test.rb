@@ -31,7 +31,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create an user' do
     assert_difference('User.count', 1) do
-      post '/users', params: { user: { name: 'create-user-test', login: 'create-user-test@email.com.br' } }.to_json, headers: headers
+      post '/users',
+           params: { user: { name: 'create-user-test', login: 'create-user-test@email.com.br' } }.to_json,
+           headers: headers
       assert_response :success
       assert_equal @response.code, '201'
     end

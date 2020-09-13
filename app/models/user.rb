@@ -6,7 +6,7 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { maximum: 60 }
 
   def to_hash
-    JSON.parse(self.to_json).deep_symbolize_keys
+    JSON.parse(to_json).deep_symbolize_keys
   end
 
   def details_hash
@@ -16,11 +16,20 @@ class User < ApplicationRecord
   private
 
   def roles_hash
-    @roles_hash ||= self.roles.map do |role|
-      features = role.features.map {|feature| {id: feature.id, name: feature.name }}
-      client = { id: role.client.id, name: role.client.name }
-      product = { id: role.product.id, name: role.product.name, features: features }
-      { id: role.id, name: role.name, product: product, client: client }
+    @roles_hash ||= roles.map do |role|
+      { id: role.id, name: role.name, product: product_by(role), client: client_by(role) }
     end
+  end
+
+  def client_by(model)
+    { id: model.client.id, name: model.client.name }
+  end
+
+  def product_by(model)
+    { id: model.product.id, name: model.product.name, features: features_by(model) }
+  end
+
+  def features_by(model)
+    model.features.map { |feature| { id: feature.id, name: feature.name } }
   end
 end

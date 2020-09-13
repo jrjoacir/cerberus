@@ -46,7 +46,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
   test 'should return one product and its features and its clients' do
     get "/products/#{products(:one).id}?show_features=true&show_clients=true"
     assert_response :success
-    assert_equal @response.body, products(:one).to_json(include: [:clients, :features])
+    assert_equal @response.body, products(:one).to_json(include: %i[clients features])
     assert_equal @response.code, '200'
   end
 
@@ -101,7 +101,9 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create a product' do
     assert_difference('Product.count', 1) do
-      post '/products', params: { product: { name: 'Product-test', description: 'Product test description' } }.to_json, headers: headers
+      post '/products',
+           params: { product: { name: 'Product-test', description: 'Product test description' } }.to_json,
+           headers: headers
       assert_response :success
       assert_equal @response.code, '201'
     end

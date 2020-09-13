@@ -6,6 +6,6 @@ class CreateFeaturesRoles < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
-    add_index :features_roles, [:features_id, :roles_id], unique: true
+    add_index :features_roles, %i[features_id roles_id], unique: true
   end
 end
