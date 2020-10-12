@@ -46,6 +46,50 @@ This project was born to validate access to a product features by users saved on
 + Response 200 (application/json)
     + Attributes (Client)
 
+# Group Products
+
+## Products Collection [/products]
+
+### List all products [GET]
++ Request (application/json)
++ Response 200 (application/json)
+    + Attributes (array[Product])
+
+### Create a product [POST]
++ Request (application/json)
+    + Attributes
+        + name: `Product name` (string, required) - Product name
+        + description: `Product description` (string, required) - Product description
+
++ Response 201 (application/json)
+    + Attributes (Client)
+
+## Product Resource [/products/{id}]
+
+### Show a product [GET /products/{id}{?show_clients}]
++ Request (application/json)
++ Parameters
+    + id: `1` (number, required) - Product id
+    + show_clients: `true` (string, optional) - Show clients indicator
+        + Default: `false`
+        + Members
+            + `true`
+            + `false`
+    
++ Response 200 (application/json)
+    + Attributes (ProductShowClients)
+
+### Update a product [PUT]
++ Request (application/json)
++ Parameters
+    + id: `1` (number, required) - Product id
++ Attributes
+    + name: `Product name` (string, required) - Product name
+    + description: `Product description` (string, required) - Product description
+
++ Response 200 (application/json)
+    + Attributes (Product)
+
 ## Data Structures
 
 ### Client (object)
@@ -67,3 +111,11 @@ This project was born to validate access to a product features by users saved on
 + description: `Product description` (string, optional)
 + created_at: `2020-10-12T14:32:34.290Z` (string, required)
 + updated_at: `2020-10-12T14:32:34.290Z` (string, required)
+
+### ProductShowClients (object)
++ id: `1` (number, required)
++ name: `Product name` (string, required)
++ description: `Product description` (string, optional)
++ created_at: `2020-10-12T14:32:34.290Z` (string, required)
++ updated_at: `2020-10-12T14:32:34.290Z` (string, required)
++ clients: (array[Client], optional)
