@@ -55,4 +55,8 @@ Read more about tests at https://guides.rubyonrails.org/testing.html
   - users/1/contracts -> show all contracts an user has access -> create parameters: show_product_details and show_client_details -> OK
   - users/1/contracts/1/features -> show all features an user has access in a contract -> OK
 - Create api blueprint documentation
-- Install and configure Rubocop Gem
+- Install and configure Rubocop Gem -> OK
+- API Version
+- Study about if response have or not a key to resource (example: /clients -> response: clients: [{}])
+- Configure CORS
+- Improve response errors (implementation and documentation)

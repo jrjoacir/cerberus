@@ -40,7 +40,7 @@ services:
 
   apiblueprint:
     image: quay.io/bukalapak/snowboard:v3.5.4
-    command: http -b 0.0.0.0:8088 --playground -c config/snowboard.yml doc.apib
+    command: http -b 0.0.0.0:8088 --playground -c snowboard.yml doc.apib
     expose:
       - "8088"
     ports:

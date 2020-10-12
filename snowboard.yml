@@ -1,0 +1,7 @@
+html:
+  playground:
+    enabled: true
+    env: development
+    environments:
+      development:
+        url: http://localhost:3000/
