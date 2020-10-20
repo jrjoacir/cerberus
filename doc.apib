@@ -75,7 +75,6 @@ This project was born to validate access to a product features by users saved on
         + Members
             + `true`
             + `false`
-            show_features
     + show_features: `true` (string, optional) - Show features indicator
         + Default: `false`
         + Members
@@ -95,6 +94,57 @@ This project was born to validate access to a product features by users saved on
 
 + Response 200 (application/json)
     + Attributes (Product)
+
+# Group Users
+
+## Users Collection [/users]
+
+### List all users [GET]
++ Request (application/json)
++ Response 200 (application/json)
+    + Attributes (array[User])
+
+### Create a user [POST]
++ Request (application/json)
+    + Attributes
+        + name: `User name` (string, required) - User name
+        + login: `login` (string, required) - Login
+
++ Response 201 (application/json)
+    + Attributes (User)
+
+## User Resource [/users/{id}]
+
+### Show a user [GET /users/{id}{?show_details}]
++ Request (application/json)
++ Parameters
+    + id: `1` (number, required) - User id
+    + show_details: `true` (string, optional) - Show user details
+        + Default: `false`
+        + Members
+            + `true`
+            + `false`
+    
++ Response 200 (application/json)
+    + Attributes (UserShowDetails)
+
+### Delete a user [DELETE /users/{id}]
++ Request (application/json)
++ Parameters
+    + id: `1` (number, required) - User id
+    
++ Response 204 (application/json)
+
+### Update a user [PUT]
++ Request (application/json)
++ Parameters
+    + id: `1` (number, required) - User id
++ Attributes
+    + name: `User name` (string, required) - User name
+    + login: `login` (string, required) - Login
+
++ Response 200 (application/json)
+    + Attributes (User)
 
 ## Data Structures
 
@@ -117,6 +167,40 @@ This project was born to validate access to a product features by users saved on
 + description: `Product description` (string, optional)
 + created_at: `2020-10-12T14:32:34.290Z` (string, required)
 + updated_at: `2020-10-12T14:32:34.290Z` (string, required)
+
+### User (object)
++ id: `1` (number, required)
++ name: `User name` (string, required)
++ login: `login` (string, required)
++ created_at: `2020-10-12T14:32:34.290Z` (string, required)
++ updated_at: `2020-10-12T14:32:34.290Z` (string, required)
+
+### UserShowDetails (object)
++ id: `1` (number, required)
++ name: `User name` (string, required)
++ login: `login` (string, required)
++ created_at: `2020-10-12T14:32:34.290Z` (string, required)
++ updated_at: `2020-10-12T14:32:34.290Z` (string, required)
++ roles: (array[RolesUserDetails], optional)
+
+### RolesUserDetails (object)
++ id: `1` (number, required)
++ name: `Role name` (string, required)
++ client: (ClientUserDetails, required)
++ product: (ProductUserDetails, required)
+
+### ProductUserDetails (object)
++ id: `1` (number, required)
++ name: `Product name` (string, required)
++ features: (array[FeaturesUserDetails], optional)
+
+### FeaturesUserDetails (object)
++ id: `3` (number, required)
++ name: `Feature name` (string, required)
+
+### ClientUserDetails (object)
++ id: `1` (number, required)
++ name: `Client name` (string, required)
 
 ### Feature (object)
 + id: `3` (number, required)
