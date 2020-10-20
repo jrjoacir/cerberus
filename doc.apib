@@ -146,6 +146,38 @@ This project was born to validate access to a product features by users saved on
 + Response 200 (application/json)
     + Attributes (User)
 
+# Group Contracts
+
+## Users Collection [/contracts{?show_product_details,show_client_details}]
+
+### List all contracts [GET]
++ Request (application/json)
++ Parameters
+    + show_product_details: `true` (string, optional) - Show product details indicator
+        + Default: `false`
+        + Members
+            + `true`
+            + `false`
+    + show_client_details: `true` (string, optional) - Show client details indicator
+        + Default: `false`
+        + Members
+            + `true`
+            + `false`
+
++ Response 200 (application/json)
+    + Attributes (array[ContractsShowClientAndProduct])
+
+### Create a contract [POST]
++ Request (application/json)
+    + Attributes
+        + client_id: `123` (number, required) - Client id
+        + product_id: `456` (number, required) - Product id
+        + enabled: `true` (boolean, optional) - Enabled indicator
+            + Default: `false`
+
++ Response 201 (application/json)
+    + Attributes (Contract)
+
 ## Data Structures
 
 ### Client (object)
@@ -210,6 +242,24 @@ This project was born to validate access to a product features by users saved on
 + read_only: `false` (boolean, required)
 + created_at: `2020-10-12T22:10:56.811Z` (string, required)
 + updated_at: `2020-10-12T22:10:56.811Z` (string, required)
+
+### Contract (object)
++ id: `1` (number, required)
++ client_id: `456` (number, required)
++ product_id: `123` (number, required)
++ enabled: `true` (boolean, required)
++ created_at: `2020-10-12T22:10:56.811Z` (string, required)
++ updated_at: `2020-10-12T22:10:56.811Z` (string, required)
+
+### ContractsShowClientAndProduct (object)
++ id: `1` (number, required)
++ client_id: `456` (number, required)
++ product_id: `123` (number, required)
++ enabled: `true` (boolean, required)
++ created_at: `2020-10-12T22:10:56.811Z` (string, required)
++ updated_at: `2020-10-12T22:10:56.811Z` (string, required)
++ product: (Product, optional)
++ client: (Client, optional)
 
 ### ProductShowClientsAndFeatures (object)
 + id: `1` (number, required)
