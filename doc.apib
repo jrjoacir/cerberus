@@ -232,6 +232,61 @@ This project was born to validate access to a product features by users saved on
 + Response 200 (application/json)
     + Attributes (Feature)
 
+# Group Roles
+
+## Roles Collection [/roles]
+
+### List all roles [GET]
++ Request (application/json)
++ Response 200 (application/json)
+    + Attributes (array[Role])
+
+### Create a role [POST]
++ Request (application/json)
+    + Attributes
+        + name: `Role name` (string, required) - Role name
+        + contract_id: `123` (number, required) - Contract id
+        + enabled:  `true` (boolean, optional) - Enabled indicator
+            + Default: `false`
+
++ Response 201 (application/json)
+    + Attributes (Role)
+
+## Role Resource [/roles/{id}]
+
+### Show a role [GET /roles/{id}{?show_users}]
++ Request (application/json)
++ Parameters
+    + id: `1` (number, required) - Role id
+    + show_users: `true` (string, optional) - Show users indicator
+        + Default: `false`
+        + Members
+            + `true`
+            + `false`
+
++ Response 200 (application/json)
+    + Attributes (RoleShowUsers)
+
+### Delete a Role [DELETE /roles/{id}]
++ Request (application/json)
++ Parameters
+    + id: `1` (number, required) - Role id
+    
++ Response 204 (application/json)
+
+### Update a feature [PUT]
++ Request (application/json)
++ Parameters
+    + id: `1` (number, required) - Role id
++ Attributes
+    + name: `Role name` (string, required) - Role name
+    + contract_id: `123` (number, required) - Contract id
+    + enabled:  `true` (boolean, required) - Enabled indicator
+        + Default: `false`
+
++ Response 200 (application/json)
+    + Attributes (Role)
+
 ## Data Structures
 
 ### Client (object)
@@ -323,3 +378,20 @@ This project was born to validate access to a product features by users saved on
 + updated_at: `2020-10-12T14:32:34.290Z` (string, required)
 + clients: (array[Client], optional)
 + features: (array[Feature], optional)
+
+### Role (object)
++ id: `1` (number, required)
++ contract_id: `123` (number, required)
++ name: `Role name` (string, required)
++ enabled: `true` (boolean, required)
++ created_at: `2020-10-12T14:32:34.290Z` (string, required)
++ updated_at: `2020-10-12T14:32:34.290Z` (string, required)
+
+### RoleShowUsers (object)
++ id: `1` (number, required)
++ contract_id: `123` (number, required)
++ name: `Role name` (string, required)
++ enabled: `true` (boolean, required)
++ created_at: `2020-10-12T14:32:34.290Z` (string, required)
++ updated_at: `2020-10-12T14:32:34.290Z` (string, required)
++ users: (array[User], optional)
