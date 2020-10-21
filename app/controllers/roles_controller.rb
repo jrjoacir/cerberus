@@ -32,9 +32,7 @@ class RolesController < ApplicationController
   private
 
   def valid_params
-    fields = params.require(:role).permit(:name, :product_id, :client_id, :enabled)
-    contract = Contract.where(product_id: fields[:product_id], client_id: fields[:client_id]).first
-    { name: fields[:name], contract_id: contract.id, enabled: fields[:enabled] }
+    params.require(:role).permit(:name, :contract_id, :enabled)
   end
 
   def roles_by_product_and_client

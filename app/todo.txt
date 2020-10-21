@@ -60,3 +60,5 @@ Read more about tests at https://guides.rubyonrails.org/testing.html
 - Study about if response have or not a key to resource (example: /clients -> response: clients: [{}])
 - Configure CORS
 - Improve response errors (implementation and documentation)
+- Remove from tests (post, put, etc) resources on params variable
+- Do you have create and update role by client/product?

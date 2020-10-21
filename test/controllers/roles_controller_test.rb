@@ -120,8 +120,7 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
   test 'should create an role' do
     assert_difference('Role.count', 1) do
       post '/roles',
-           params: { role: { name: 'create-role-test', product_id: contracts(:four).product_id,
-                             client_id: contracts(:four).client_id, enabled: true } }.to_json,
+           params: { name: 'create-role-test', contract_id: contracts(:four).id, enabled: true }.to_json,
            headers: headers
       assert_response :success
       assert_equal @response.code, '201'
@@ -131,8 +130,7 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
   test 'should raise unprocessable entity error on create an role' do
     assert_no_difference('Role.count') do
       post '/roles',
-           params: { role: { name: roles(:one).name, product_id: roles(:one).contract.product_id,
-                             client_id: roles(:one).contract.client_id, enabled: true } }.to_json,
+           params: { name: roles(:one).name, contract_id: roles(:one).contract.id, enabled: true }.to_json,
            headers: headers
       assert_equal @response.body, { message: 'Unprocessable Entity' }.to_json
       assert_equal @response.code, '422'
@@ -225,9 +223,8 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should update a role' do
     assert_no_difference('Role.count') do
-      request_body = { name: 'Role-test-2', product_id: contracts(:two).product_id,
-                       client_id: contracts(:two).client_id, enabled: !roles(:one).enabled }
-      put "/roles/#{roles(:one).id}", params: { role: request_body }.to_json, headers: headers
+      request_body = { name: 'Role-test-2', contract_id: contracts(:two).id, enabled: !roles(:one).enabled }
+      put "/roles/#{roles(:one).id}", params: request_body.to_json, headers: headers
       body_hash = JSON.parse(@response.body).deep_symbolize_keys
       assert_response :success
       assert_equal body_hash[:name], request_body[:name]
@@ -237,9 +234,10 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'should raise unprocessable entity error on update a feature with a duplicate name' do
-    assert_no_difference('Feature.count') do
-      put "/features/#{features(:one).id}", params: { feature: { name: features(:two).name } }.to_json, headers: headers
+  test 'should raise unprocessable entity error on update a role with a duplicate name' do
+    assert_no_difference('Role.count') do
+      request_body = { name: roles(:two).name, contract_id: roles(:two).contract_id, enabled: true }
+      put "/roles/#{roles(:one).id}", params: request_body.to_json, headers: headers
       assert_equal @response.body, { message: 'Unprocessable Entity' }.to_json
       assert_equal @response.code, '422'
     end
