@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     delete '/roles/:role_id', to: 'users_role#destroy'
   end
 
-  resources :features, only: %i[index show destroy update] do
+  resources :features, only: %i[create index show destroy update] do
     post '/roles/:role_id', to: 'features_role#create'
     delete '/roles/:role_id', to: 'features_role#destroy'
   end

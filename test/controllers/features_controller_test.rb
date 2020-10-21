@@ -64,20 +64,41 @@ class FeaturesControllerTest < ActionDispatch::IntegrationTest
     assert_equal @response.code, '404'
   end
 
-  test 'should create a feature' do
+  test 'should create a feature by product' do
     assert_difference('Feature.count', 1) do
       post "/products/#{products(:one).id}/features",
-           params: { feature: { name: 'feature-test', enabled: true, read_only: false } }.to_json,
+           params: { name: 'feature-test', enabled: true, read_only: false }.to_json,
            headers: headers
       assert_response :success
       assert_equal @response.code, '201'
     end
   end
 
-  test 'should raise unprocessable entity error on create a feature' do
+  test 'should create a feature' do
+    assert_difference('Feature.count', 1) do
+      post '/features',
+           params: { product_id: products(:one).id, name: 'feature-test', enabled: true, read_only: false }.to_json,
+           headers: headers
+      assert_response :success
+      assert_equal @response.code, '201'
+    end
+  end
+
+  test 'should raise unprocessable entity error on create a feature by product' do
     assert_no_difference('Feature.count') do
       post "/products/#{products(:one).id}/features",
-           params: { feature: { name: features(:two).name, enabled: true, read_only: false } }.to_json,
+           params: { name: features(:two).name, enabled: true, read_only: false }.to_json,
+           headers: headers
+      assert_equal @response.body, { message: 'Unprocessable Entity' }.to_json
+      assert_equal @response.code, '422'
+    end
+  end
+
+  test 'should raise unprocessable entity error on create a feature' do
+    assert_no_difference('Feature.count') do
+      post '/features',
+           params: { product_id: products(:one).id, name: features(:two).name,
+                     enabled: true, read_only: false }.to_json,
            headers: headers
       assert_equal @response.body, { message: 'Unprocessable Entity' }.to_json
       assert_equal @response.code, '422'

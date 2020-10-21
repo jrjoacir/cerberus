@@ -148,7 +148,7 @@ This project was born to validate access to a product features by users saved on
 
 # Group Contracts
 
-## Users Collection [/contracts{?show_product_details,show_client_details}]
+## Contracts Collection [/contracts{?show_product_details,show_client_details}]
 
 ### List all contracts [GET]
 + Request (application/json)
@@ -177,6 +177,60 @@ This project was born to validate access to a product features by users saved on
 
 + Response 201 (application/json)
     + Attributes (Contract)
+
+# Group Features
+
+## Features Collection [/features]
+
+### List all features [GET]
++ Request (application/json)
++ Response 200 (application/json)
+    + Attributes (array[Feature])
+
+### Create a feature [POST]
++ Request (application/json)
+    + Attributes
+        + name: `Feature name` (string, required) - Feature name
+        + product_id: `123` (number, required) - Product id
+        + enabled:  `true` (boolean, optional) - Enabled indicator
+            + Default: `false`
+        + read_only:  `true` (boolean, optional) - Read only indicator
+            + Default: `false`
+
++ Response 201 (application/json)
+    + Attributes (Feature)
+
+## Feature Resource [/features/{id}]
+
+### Show a feature [GET /features/{id}]
++ Request (application/json)
++ Parameters
+    + id: `1` (number, required) - Feature id
+
++ Response 200 (application/json)
+    + Attributes (Feature)
+
+### Delete a feature [DELETE /features/{id}]
++ Request (application/json)
++ Parameters
+    + id: `1` (number, required) - Feature id
+    
++ Response 204 (application/json)
+
+### Update a feature [PUT]
++ Request (application/json)
++ Parameters
+    + id: `1` (number, required) - Feature id
++ Attributes
+    + name: `Feature name` (string, required) - Feature name
+    + product_id: `123` (number, required) - Product id
+    + enabled:  `true` (boolean, optional) - Enabled indicator
+        + Default: `false`
+    + read_only:  `true` (boolean, optional) - Read only indicator
+        + Default: `false`
+
++ Response 200 (application/json)
+    + Attributes (Feature)
 
 ## Data Structures
 
