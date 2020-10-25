@@ -62,3 +62,4 @@ Read more about tests at https://guides.rubyonrails.org/testing.html
 - Improve response errors (implementation and documentation)
 - Remove from tests (post, put, etc) resources on params variable
 - Do you have create and update role by client/product?
+- Exchange users_id, features_id and roles_id to in its singular form on UserRole and FeatureRole resouces
