@@ -41,6 +41,7 @@ Read more about tests at https://guides.rubyonrails.org/testing.html
     - Client -> Probably it will be not necessary to delete it
     - Product -> Probably it will be not necessary to delete it
 - Create pagination in index actions
+- Create cache strategy
 - Add PUT method in Controllers
   - Client -> OK
   - Product -> OK
@@ -54,7 +55,7 @@ Read more about tests at https://guides.rubyonrails.org/testing.html
 - Create new users routes
   - users/1/contracts -> show all contracts an user has access -> create parameters: show_product_details and show_client_details -> OK
   - users/1/contracts/1/features -> show all features an user has access in a contract -> OK
-- Create api blueprint documentation
+- Improve api blueprint documentation with diffent ways to consume requests, like post roles and fetures
 - Install and configure Rubocop Gem -> OK
 - API Version
 - Study about if response have or not a key to resource (example: /clients -> response: clients: [{}])
