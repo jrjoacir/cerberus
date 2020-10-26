@@ -5,7 +5,7 @@ class UsersRoleControllerTest < ActionDispatch::IntegrationTest
     assert_difference('UsersRole.count', 1) do
       post "/users/#{users(:three).id}/roles/#{roles(:three).id}"
       assert_response :success
-      assert_equal @response.body, UsersRole.where(users_id: users(:three).id, roles_id: roles(:three).id).first.to_json
+      assert_equal @response.body, UsersRole.where(user_id: users(:three).id, role_id: roles(:three).id).first.to_json
       assert_equal @response.code, '201'
     end
   end
@@ -14,7 +14,7 @@ class UsersRoleControllerTest < ActionDispatch::IntegrationTest
     assert_difference('UsersRole.count', 1) do
       post "/roles/#{roles(:three).id}/users/#{users(:three).id}"
       assert_response :success
-      assert_equal @response.body, UsersRole.where(users_id: users(:three).id, roles_id: roles(:three).id).first.to_json
+      assert_equal @response.body, UsersRole.where(user_id: users(:three).id, role_id: roles(:three).id).first.to_json
       assert_equal @response.code, '201'
     end
   end

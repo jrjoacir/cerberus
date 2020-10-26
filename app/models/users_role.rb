@@ -1,7 +1,7 @@
 class UsersRole < ApplicationRecord
-  belongs_to :users, class_name: 'User'
-  belongs_to :roles, class_name: 'Role'
+  belongs_to :user
+  belongs_to :role
 
-  validates :users_id, presence: true, uniqueness: { scope: :roles_id }
-  validates :roles_id, presence: true, uniqueness: { scope: :users_id }
+  validates :user_id, presence: true, uniqueness: { scope: :role_id }
+  validates :role_id, presence: true, uniqueness: { scope: :user_id }
 end

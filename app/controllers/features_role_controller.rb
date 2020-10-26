@@ -12,6 +12,5 @@ class FeaturesRoleController < ApplicationController
 
   def valid_params
     params.permit(:feature_id, :role_id)
-    { features_id: params[:feature_id], roles_id: params[:role_id] }
   end
 end

@@ -45,13 +45,13 @@ ActiveRecord::Schema.define(version: 2020_07_24_015349) do
   end
 
   create_table "features_roles", force: :cascade do |t|
-    t.bigint "features_id", null: false
-    t.bigint "roles_id", null: false
+    t.bigint "feature_id", null: false
+    t.bigint "role_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["features_id", "roles_id"], name: "index_features_roles_on_features_id_and_roles_id", unique: true
-    t.index ["features_id"], name: "index_features_roles_on_features_id"
-    t.index ["roles_id"], name: "index_features_roles_on_roles_id"
+    t.index ["feature_id", "role_id"], name: "index_features_roles_on_feature_id_and_role_id", unique: true
+    t.index ["feature_id"], name: "index_features_roles_on_feature_id"
+    t.index ["role_id"], name: "index_features_roles_on_role_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -81,21 +81,21 @@ ActiveRecord::Schema.define(version: 2020_07_24_015349) do
   end
 
   create_table "users_roles", force: :cascade do |t|
-    t.bigint "users_id", null: false
-    t.bigint "roles_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "role_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["roles_id"], name: "index_users_roles_on_roles_id"
-    t.index ["users_id", "roles_id"], name: "index_users_roles_on_users_id_and_roles_id", unique: true
-    t.index ["users_id"], name: "index_users_roles_on_users_id"
+    t.index ["role_id"], name: "index_users_roles_on_role_id"
+    t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", unique: true
+    t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
   add_foreign_key "contracts", "clients"
   add_foreign_key "contracts", "products"
   add_foreign_key "features", "products"
-  add_foreign_key "features_roles", "features", column: "features_id"
-  add_foreign_key "features_roles", "roles", column: "roles_id"
+  add_foreign_key "features_roles", "features"
+  add_foreign_key "features_roles", "roles"
   add_foreign_key "roles", "contracts"
-  add_foreign_key "users_roles", "roles", column: "roles_id"
-  add_foreign_key "users_roles", "users", column: "users_id"
+  add_foreign_key "users_roles", "roles"
+  add_foreign_key "users_roles", "users"
 end

@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     user = User.find(params[:id])
 
     ApplicationRecord.transaction do
-      UsersRole.destroy_by(users_id: user.id)
+      UsersRole.destroy_by(user_id: user.id)
       user.destroy
     end
 

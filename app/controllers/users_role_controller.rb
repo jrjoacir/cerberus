@@ -12,6 +12,5 @@ class UsersRoleController < ApplicationController
 
   def valid_params
     params.permit(:user_id, :role_id)
-    { users_id: params[:user_id], roles_id: params[:role_id] }
   end
 end

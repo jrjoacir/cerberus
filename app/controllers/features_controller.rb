@@ -22,7 +22,7 @@ class FeaturesController < ApplicationController
     feature = params[:product_id].present? ? feature_by_product : Feature.find(params[:id])
 
     ApplicationRecord.transaction do
-      FeaturesRole.destroy_by(features_id: feature.id)
+      FeaturesRole.destroy_by(feature_id: feature.id)
       feature.destroy
     end
 

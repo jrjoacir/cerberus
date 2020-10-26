@@ -1,17 +1,17 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  features: one
-  roles: one
+  feature: one
+  role: one
 
 two:
-  features: two
-  roles: two
+  feature: two
+  role: two
 
 three:
-  features: one
-  roles: five
+  feature: one
+  role: five
 
 four:
-  features: two
-  roles: five
+  feature: two
+  role: five

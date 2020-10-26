@@ -43,35 +43,35 @@ jmail_roles = { admin: Role.create!(name: 'admin', contract_id: google_products[
 jvideos_roles = { admin: Role.create!(name: 'master', contract_id: google_products[:jvideos].id, enabled: true),
                   normal: Role.create!(name: 'normal', contract_id: google_products[:jvideos].id, enabled: false) }
 jphotos_roles = { liker: Role.create!(name: 'liker', contract_id: facebook_products[:jphotos].id, enabled: true),
-                  poster: Role.create!(name: 'poster', contract_id: facebook_products[:jphotos].id) }
+                  poser: Role.create!(name: 'poser', contract_id: facebook_products[:jphotos].id) }
 
 # jvideos_features_roles
-FeaturesRole.create!(features_id: jvideos_features[:post].id, roles_id: jvideos_roles[:admin].id)
-FeaturesRole.create!(features_id: jvideos_features[:post].id, roles_id: jvideos_roles[:normal].id)
-FeaturesRole.create!(features_id: jvideos_features[:watch].id, roles_id: jvideos_roles[:admin].id)
-FeaturesRole.create!(features_id: jvideos_features[:watch].id, roles_id: jvideos_roles[:normal].id)
+FeaturesRole.create!(feature_id: jvideos_features[:post].id, role_id: jvideos_roles[:admin].id)
+FeaturesRole.create!(feature_id: jvideos_features[:post].id, role_id: jvideos_roles[:normal].id)
+FeaturesRole.create!(feature_id: jvideos_features[:watch].id, role_id: jvideos_roles[:admin].id)
+FeaturesRole.create!(feature_id: jvideos_features[:watch].id, role_id: jvideos_roles[:normal].id)
 
 # jmail_features_roles
-FeaturesRole.create!(features_id: jmail_features[:send].id, roles_id: jmail_roles[:admin].id)
-FeaturesRole.create!(features_id: jmail_features[:send].id, roles_id: jmail_roles[:normal].id)
-FeaturesRole.create!(features_id: jmail_features[:remove].id, roles_id: jmail_roles[:admin].id)
+FeaturesRole.create!(feature_id: jmail_features[:send].id, role_id: jmail_roles[:admin].id)
+FeaturesRole.create!(feature_id: jmail_features[:send].id, role_id: jmail_roles[:normal].id)
+FeaturesRole.create!(feature_id: jmail_features[:remove].id, role_id: jmail_roles[:admin].id)
 
 # jphotos_features_roles
-FeaturesRole.create!(features_id: jphotos_features[:post].id, roles_id: jphotos_roles[:poster].id)
-FeaturesRole.create!(features_id: jphotos_features[:like].id, roles_id: jphotos_roles[:liker].id)
+FeaturesRole.create!(feature_id: jphotos_features[:post].id, role_id: jphotos_roles[:poser].id)
+FeaturesRole.create!(feature_id: jphotos_features[:like].id, role_id: jphotos_roles[:liker].id)
 
 # jmail_users_roles
-UsersRole.create!(users_id: users[:joacir].id, roles_id: jmail_roles[:admin].id)
-UsersRole.create!(users_id: users[:joacir].id, roles_id: jmail_roles[:normal].id)
-UsersRole.create!(users_id: users[:junior].id, roles_id: jmail_roles[:normal].id)
-UsersRole.create!(users_id: users[:oliveira].id, roles_id: jmail_roles[:admin].id)
+UsersRole.create!(user_id: users[:joacir].id, role_id: jmail_roles[:admin].id)
+UsersRole.create!(user_id: users[:joacir].id, role_id: jmail_roles[:normal].id)
+UsersRole.create!(user_id: users[:junior].id, role_id: jmail_roles[:normal].id)
+UsersRole.create!(user_id: users[:oliveira].id, role_id: jmail_roles[:admin].id)
 
 # jvideos_users_roles
-UsersRole.create!(users_id: users[:oliveira].id, roles_id: jvideos_roles[:admin].id)
-UsersRole.create!(users_id: users[:oliveira].id, roles_id: jvideos_roles[:normal].id)
-UsersRole.create!(users_id: users[:santos].id, roles_id: jvideos_roles[:normal].id)
-UsersRole.create!(users_id: users[:junior].id, roles_id: jvideos_roles[:admin].id)
+UsersRole.create!(user_id: users[:oliveira].id, role_id: jvideos_roles[:admin].id)
+UsersRole.create!(user_id: users[:oliveira].id, role_id: jvideos_roles[:normal].id)
+UsersRole.create!(user_id: users[:santos].id, role_id: jvideos_roles[:normal].id)
+UsersRole.create!(user_id: users[:junior].id, role_id: jvideos_roles[:admin].id)
 
 # jphotos_users_roles
-UsersRole.create!(users_id: users[:joacir].id, roles_id: jphotos_roles[:poster].id)
-UsersRole.create!(users_id: users[:santos].id, roles_id: jphotos_roles[:poster].id)
+UsersRole.create!(user_id: users[:joacir].id, role_id: jphotos_roles[:poser].id)
+UsersRole.create!(user_id: users[:santos].id, role_id: jphotos_roles[:poser].id)

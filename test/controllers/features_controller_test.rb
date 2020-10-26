@@ -25,7 +25,7 @@ class FeaturesControllerTest < ActionDispatch::IntegrationTest
   test 'should return all features filter by contract and user' do
     get "/users/#{users(:four).id}/contracts/#{contracts(:one).id}/features"
     assert_response :success
-    assert_equal @response.body, [features_roles(:three).features, features_roles(:four).features].to_json
+    assert_equal @response.body, [features_roles(:three).feature, features_roles(:four).feature].to_json
     assert_equal @response.code, '200'
   end
 

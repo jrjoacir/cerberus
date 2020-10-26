@@ -1,6 +1,6 @@
 class Feature < ApplicationRecord
   belongs_to :product
-  has_many :features_roles, primary_key: :id, foreign_key: :features_id
+  has_many :features_roles, primary_key: :id, foreign_key: :feature_id
   has_many :roles, through: :features_roles
 
   validates :name, presence: true, uniqueness: { scope: :product_id }, length: { maximum: 30 }

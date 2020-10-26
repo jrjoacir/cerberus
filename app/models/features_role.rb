@@ -1,7 +1,7 @@
 class FeaturesRole < ApplicationRecord
-  belongs_to :features, class_name: 'Feature'
-  belongs_to :roles, class_name: 'Role'
+  belongs_to :feature
+  belongs_to :role
 
-  validates :features_id, presence: true, uniqueness: { scope: :roles_id }
-  validates :roles_id, presence: true, uniqueness: { scope: :features_id }
+  validates :feature_id, presence: true, uniqueness: { scope: :role_id }
+  validates :role_id, presence: true, uniqueness: { scope: :feature_id }
 end
