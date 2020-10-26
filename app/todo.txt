@@ -64,3 +64,7 @@ Read more about tests at https://guides.rubyonrails.org/testing.html
 - Remove from tests (post, put, etc) resources on params variable
 - Do you have create and update role by client/product?
 - Exchange users_id, features_id and roles_id to in its singular form on UserRole and FeatureRole resources -> OK
+- Configure and test production docker image. Tips:
+  - Create an image: docker build -t cerberus:0.0.0 .
+  - Run container: docker run --env-file ./.env.development -p 127.0.0.1:3000:3000/tcp cerberus:0.0.0 rails s -p 3000 -b 0.0.0.0
+  - Run docker documentation: https://docs.docker.com/engine/reference/commandline/run/
