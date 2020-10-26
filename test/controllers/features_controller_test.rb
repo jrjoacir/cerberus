@@ -131,7 +131,7 @@ class FeaturesControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference('Feature.count') do
       request_body = { name: 'Feature-test-2', product_id: products(:two).id,
                        enabled: !features(:one).enabled, read_only: !features(:one).read_only }
-      put "/features/#{features(:one).id}", params: { feature: request_body }.to_json, headers: headers
+      put "/features/#{features(:one).id}", params: request_body.to_json, headers: headers
       body_hash = JSON.parse(@response.body).deep_symbolize_keys
       assert_response :success
       assert_equal body_hash[:name], request_body[:name]
@@ -145,7 +145,7 @@ class FeaturesControllerTest < ActionDispatch::IntegrationTest
   test 'should raise unprocessable entity error on update a feature with a duplicate name' do
     assert_no_difference('Feature.count') do
       put "/features/#{features(:one).id}",
-          params: { feature: { name: features(:two).name, enabled: true, read_only: true } }.to_json,
+          params: { name: features(:two).name, enabled: true, read_only: true }.to_json,
           headers: headers
       assert_equal @response.body, { message: 'Unprocessable Entity' }.to_json
       assert_equal @response.code, '422'

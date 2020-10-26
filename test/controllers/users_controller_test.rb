@@ -32,7 +32,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test 'should create an user' do
     assert_difference('User.count', 1) do
       post '/users',
-           params: { user: { name: 'create-user-test', login: 'create-user-test@email.com.br' } }.to_json,
+           params: { name: 'create-user-test', login: 'create-user-test@email.com.br' }.to_json,
            headers: headers
       assert_response :success
       assert_equal @response.code, '201'
@@ -41,7 +41,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test 'should raise unprocessable entity error on create an user' do
     assert_no_difference('User.count') do
-      post '/users', params: { user: { name: users(:one).name, login: users(:one).login } }.to_json, headers: headers
+      post '/users', params: { name: users(:one).name, login: users(:one).login }.to_json, headers: headers
       assert_equal @response.body, { message: 'Unprocessable Entity' }.to_json
       assert_equal @response.code, '422'
     end
@@ -72,7 +72,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test 'should update an user' do
     assert_no_difference('User.count') do
       request_body = { name: 'User-test-2', login: 'user-test-2-login' }
-      put "/users/#{users(:one).id}", params: { user: request_body }.to_json, headers: headers
+      put "/users/#{users(:one).id}", params: request_body.to_json, headers: headers
       body_hash = JSON.parse(@response.body).deep_symbolize_keys
       assert_response :success
       assert_equal body_hash[:name], request_body[:name]
@@ -83,7 +83,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test 'should raise unprocessable entity error on update an user with a duplicate login' do
     assert_no_difference('User.count') do
-      put "/users/#{users(:one).id}", params: { user: { login: users(:two).login } }.to_json, headers: headers
+      put "/users/#{users(:one).id}", params: { login: users(:two).login }.to_json, headers: headers
       assert_equal @response.body, { message: 'Unprocessable Entity' }.to_json
       assert_equal @response.code, '422'
     end
