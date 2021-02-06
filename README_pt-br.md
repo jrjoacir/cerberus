@@ -1,10 +1,11 @@
+>This documentation is also available in [English](README.md).
 # O projeto Cerberus
 Este projeto é uma API cuja finalidade é autorizar ou revogar acessos as funcionalidades dos produtos. Toda estrutura criada passa pela relação de diversas entidades: Cliente, Usuário, Produto, Contrato, Papéis e Funcionalidades. As estruturas lógicas e regras de negócio serão documentadas em breve.
 
 O projeto **Cerberus** foi criado pensando no idioma inglês, não por conta de ter mais "abrangência" ou ter mais "aceitação" em uma ou outra comunidade, mas sim foi escolhido o idioma inglês apenas para contribuir no aprendizado do criador do projeto neste idioma em projetos técnicos. Há outros projetos deste autor que estão em português seja por comodidade do criador seja pela intenção de ser mais inclusivo com os falantes do português brasileiro.
 
 ## Por que foi escolhido o nome Cerberus?
-> **Cérbero** (em grego clássico: Κέρβερος; romaniz.: Kerberos – trad.: “demónio do poço”; em latim: Cerberus), na mitologia grega, era um monstruoso cão de três cabeças que guardava a entrada do mundo inferior, o reino subterrâneo dos mortos, deixando as almas entrarem, mas jamais saírem e despedaçando os mortais que por lá se aventurassem. - [Wikipedia](https://pt.wikipedia.org/wiki/C%C3%A9rbero).
+> **Cérbero** (em grego clássico: Κέρβερος; romaniz.: Kerberos – trad.: “demónio do poço”; em latim: Cerberus), na mitologia grega, era um monstruoso cão de três cabeças que guardava a entrada do mundo inferior, o reino subterrâneo dos mortos, deixando as almas entrarem, mas jamais saírem e despedaçando os mortais que por lá se aventurassem. - [Wikipedia](https://pt.wikipedia.org/wiki/C%C3%A9rbero)
 
 Escolhi o nome **Cerberus**, por se tratar de guardar algo, no caso a "entrada do mundo inferior" que para este projeto pode significar o acesso a alguma funcionalidade. Sendo assim, podemos afirmar que este projeto guarda a entrada das funcionalidade de um produto.
 
@@ -39,7 +40,7 @@ Este projeto disponibiliza quatro contêineres docker:
 - **database**: Contêiner que fornece duas instância DE banco de dados Postgresql: **postgres_dev** (para desenvolvimento) e **postgres_test** (para execução de testes)
 - **development**: Contêiner que executa a API. Ele depende do contêiner *database*.
 - **test**: Contêiner que executa testes e analisador de código. Ele depende do contêiner *database*.
-- **apiblueprint**: Contêiner que executa o servidor de documentação de API em formato blueprint.
+- **apiblueprint**: Contêiner que executa o servidor de documentação de API em formato Blueprint.
 
 | Serviços         | Depende do serviço | Objetivos                                                                                                |
 |------------------|--------------------|----------------------------------------------------------------------------------------------------------|
@@ -96,7 +97,7 @@ docker-compose run --rm test rails test
 Para executar testes de apenas um arquivo, você deve informar o arquivo no final do comando.
 
 ```bash
-docker-compose run --rm rails test spec/services/candidatos_service_spec.rb
+docker-compose run --rm test rails test test/controllers/clients_controller_test.rb
 ```
 
 Analize todo o código com o [Rubocop](https://github.com/rubocop-hq/rubocop) executando:
@@ -108,11 +109,11 @@ docker-compose run --rm test rubocop
 Para analisar o código apenas de um arquivo, você deve informar o arquivo no final do comando.
 
 ```bash
-docker-compose run --rm test rubocop app/services/candidatos_service.rb
+docker-compose run --rm test rubocop app/controllers/clients_controller.rb
 ```
 
 #### Dicas
-Em todas as execuções acima, um novo container é criado para executar os testes e no fim da execução este container é removido.
+Em todas as execuções acima, um novo container é criado para executar os comandos e no fim da execução este container é removido.
 
 Ainda há a opção de utilizar o contêiner de testes como se fosse uma máquina local, assim bastaria ingressar nela, realizar as execuções de interesse e sair quando achar necessário:
 
