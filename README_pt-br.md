@@ -1,6 +1,6 @@
 >This documentation is also available in [English](README.md).
 # O projeto Cerberus
-Este projeto é uma API cuja finalidade é autorizar ou revogar acessos as funcionalidades dos produtos. Toda estrutura criada passa pela relação de diversas entidades: Cliente, Usuário, Produto, Contrato, Papéis e Funcionalidades. As estruturas lógicas e regras de negócio serão documentadas em breve.
+Este projeto é uma API cuja finalidade é autorizar ou revogar acessos as funcionalidades dos produtos. Toda estrutura criada passa pela relação de diversas entidades: Cliente, Usuário, Produto, Contrato, Papéis e Funcionalidades. Leia a [Documentação de Entidades](entity_documentation.md) para ter mais detalhes sobre as entidades, suas relações e objetivos.
 
 O projeto **Cerberus** foi criado pensando no idioma inglês, não por conta de ter mais "abrangência" ou ter mais "aceitação" em uma ou outra comunidade, mas sim foi escolhido o idioma inglês apenas para contribuir no aprendizado do criador do projeto neste idioma em projetos técnicos. Há outros projetos deste autor que estão em português seja por comodidade do criador seja pela intenção de ser mais inclusivo com os falantes do português brasileiro.
 
@@ -137,6 +137,19 @@ Se você precisar executar a migração de bando de dados, você deve usar a *ra
 ```bash
 docker-compose run --rm development rails db:migrate
 ```
+
+### Using API Blueprint documentation
+
+Este projeto usa o formato Blueprint para documentar APIs e você pode executar o contêiner **apiblueprint** para usá-lo. Então, execute:
+
+```bash
+docker-compose up apiblueprint
+```
+
+e acesse ```http://localhost:8088/```
+
+The Blueprint container will interpret `doc.apib` file and will generate a html file. Then, when you access it, you will be able to read and interact with this documentation. More about Blueprint visit [api blueprint](https://apiblueprint.org/).
+O contêiner blueprint interpretará o arquivo `doc.apib` e gerará um arquivo em html. Então, quando você acessá-lo, você poderá ler e interagir com este documentação. Para mais informação sobre o Blueprint, visite [api blueprint](https://apiblueprint.org/).
 
 ## Informações adicionais
 - O *Dockerfile* contendo a linguagem Ruby foi obtido no repositório oficial no [DockerHub](https://hub.docker.com/): [Ruby Dockerfile](https://hub.docker.com/_/ruby/)

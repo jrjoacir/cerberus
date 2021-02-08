@@ -1,6 +1,6 @@
 > Está documentação também está disponível em [Português do Brasil](README_pt-br.md).
 # Cerberus Project
-This project is an API whose purpose is to authorize or revoke access to product features. Every structure created involves the relationship of several entities: Clients, Users, Products, Contracts, Roles and Functionalities. Logical structures and business rules will be documented soon.
+This project is an API whose purpose is to authorize or revoke access to product features. Every structure created involves the relationship of several entities: Clients, Users, Products, Contracts, Roles and Functionalities. Read [Entity Documentation](entity_documentation.md) to get more details about entities, theirs relations and objectives.
 
 The **Cerberus** project was created with the English language in mind, not because it has more "scope" or more "acceptance" in one or another community, but the English language was chosen only to contribute to the learning of the project's creator in this language in technical projects. There are other projects by this author that are in Brazilian Portuguese either for the convenience of the creator or for the intention of being more inclusive with Brazilian Portuguese speakers, my mother language.
 
@@ -46,7 +46,7 @@ This project provides four docker containers:
 |------------------|--------------------|------------------------------------------------------------------------------------------|
 | **database**     |                    | Make the PostgreSQL database available                                                   |
 | **development**  | database           | Run the API server                                                                       |
-| **test**         | database           | Provide environment to perform the execution of tests and code  analyzer          |
+| **test**         | database           | Provide environment to perform the execution of tests and code  analyzer                 |
 | **apiblueprint** |                    | Creates and runs the API documentation server, which can be run to simulate API requests |
 
 More information about *stop*, *start*, *restart*, *run* and other commands, read [Docker Compose Documentation](https://docs.docker.com/compose/) and [Docker Documentation](https://docs.docker.com/).
@@ -137,6 +137,18 @@ If you need to perform the database migration, you must use the *rake task* **mi
 ```bash
 docker-compose run --rm development rails db:migrate
 ```
+
+### Using API Blueprint documentation
+
+This project uses Blueprint format API documentation and you can run the container **apiblueprint** to use it. So, execute:
+
+```bash
+docker-compose up apiblueprint
+```
+
+and access ```http://localhost:8088/```
+
+The blueprint container will interpret `doc.apib` file and will generate a html file. Then, when you access it, you will be able to read and interact with this documentation. More about Blueprint, visit [api blueprint](https://apiblueprint.org/).
 
 ## Additional Information
 - The *Dockerfile* containing the Ruby language was obtained from the official repository on [DockerHub](https://hub.docker.com/): [Ruby Dockerfile](https://hub.docker.com/_/ruby/)
