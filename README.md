@@ -150,6 +150,13 @@ and access ```http://localhost:8088/```
 
 The blueprint container will interpret `doc.apib` file and will generate a html file. Then, when you access it, you will be able to read and interact with this documentation. More about Blueprint, visit [api blueprint](https://apiblueprint.org/).
 
+## License
+This project is licensed by **GNU General Public License v3.0**.
+
+> Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.
+
+More about this license access [GNU General Public License v3.0](LICENSE.md).
+
 ## Additional Information
 - The *Dockerfile* containing the Ruby language was obtained from the official repository on [DockerHub](https://hub.docker.com/): [Ruby Dockerfile](https://hub.docker.com/_/ruby/)
 - The *Dockerfile* for PostgreSQL was obtained from the official repository on [DockerHub](https://hub.docker.com/): [Postgresql Dockerfile](https://hub.docker.com/_/postgres/)
