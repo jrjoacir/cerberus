@@ -1,0 +1,13 @@
+services:
+  - docker
+
+install:
+  - docker-compose up -d database
+  - docker-compose build test
+  - docker-compose up test
+
+script:
+  - docker-compose run --rm test rubocop
+  - docker-compose run --rm test rspec
+  - docker-compose stop
+  - docker-compose rm -f
