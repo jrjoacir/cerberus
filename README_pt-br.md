@@ -1,6 +1,6 @@
 >This documentation is also available in [English](README.md).
 # O projeto Cerberus
-Este projeto é uma API cuja finalidade é autorizar ou revogar acessos as funcionalidades dos produtos. Toda estrutura criada passa pela relação de diversas entidades: Cliente, Usuário, Produto, Contrato, Papéis e Funcionalidades. Leia a [Documentação de Entidades](entity_documentation.md) para ter mais detalhes sobre as entidades, suas relações e objetivos.
+Este projeto é uma API cuja finalidade é autorizar ou revogar acessos as funcionalidades dos produtos. Toda estrutura criada passa pela relação de diversas entidades: Cliente, Usuário, Produto, Contrato, Papéis e Funcionalidades. Leia a [Documentação de Entidades](entity_documentation_pt-br.md) para ter mais detalhes sobre as entidades, suas relações e objetivos.
 
 O projeto **Cerberus** foi criado pensando no idioma inglês, não por conta de ter mais "abrangência" ou ter mais "aceitação" em uma ou outra comunidade, mas sim foi escolhido o idioma inglês apenas para contribuir no aprendizado do criador do projeto neste idioma em projetos técnicos. Há outros projetos deste autor que estão em português seja por comodidade do criador seja pela intenção de ser mais inclusivo com os falantes do português brasileiro.
 
