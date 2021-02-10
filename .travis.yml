@@ -8,6 +8,6 @@ install:
 
 script:
   - docker-compose run --rm test rubocop
-  - docker-compose run --rm test rspec
+  - docker-compose run --rm test rails test
   - docker-compose stop
   - docker-compose rm -f
