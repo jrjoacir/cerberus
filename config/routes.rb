@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  get '/healthcheck', to: 'application#healthcheck'
+  resources :statuses, only: %i[index]
+  get '/healthcheck', to: 'statuses#index'
+
   resources :clients, only: %i[create index show update] do
     resources :products, only: %i[index show] do
       resources :roles, only: %i[index show destroy]

@@ -1,4 +1,4 @@
-FROM ruby:2.7-alpine
+FROM ruby:2.7.2-alpine
 WORKDIR /usr/src/app
 RUN apk --no-cache add build-base tzdata postgresql-dev
 COPY Gemfile Gemfile.lock ./
