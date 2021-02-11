@@ -1,32 +1,22 @@
 class StatusesController < ApplicationController
+  before_action :general_status, only: [:index]
+
   def index
-    internal_server_error = :internal_server_error if %i[error fail].include?(database_status[:status])
-    render json: { database: database_status }, status: internal_server_error || :ok
+    http_status = %i[error warning].include?(@status) ? :internal_server_error : :ok
+    render json: { status: @status, services: services_status }, status: http_status
   end
 
   private
 
-  def database_status
-    start = Time.now
-    ActiveRecord::Base.establish_connection
-    ActiveRecord::Base.connection
-    duration = (Time.now - start).to_f
-    return render_database_connection_success(duration) if ActiveRecord::Base.connected?
-
-    render_database_connection_fail(duration)
-  rescue StandardError
-    render_database_connection_error(duration)
+  # when all services is operational, status is operational
+  # when one service is not operational, status is warning
+  # when all services is not operational, status is error
+  def general_status
+    @database_status ||= DatabaseService.status
+    @status = @database_status
   end
 
-  def render_database_connection_success(duration)
-    { message: 'Database Connection Success', duration: duration, status: :success }
-  end
-
-  def render_database_connection_fail(duration)
-    { message: 'Database Connection Failed', duration: duration, status: :fail }
-  end
-
-  def render_database_connection_error(duration)
-    { message: 'Database Connection Failed', duration: duration, status: :error }
+  def services_status
+    { database: @database_status }
   end
 end
