@@ -29,7 +29,7 @@ This project was designed with the greatest possible independence from the opera
 
 2. Starting the application container (*development*): ```docker-compose up development```
 
-3. **Done!**. Now, you can access your application by http://localhost:3000.
+3. **Done!**. Now, you can access your application by http://localhost:3000/healthcheck.
 
 ## Understanding and using the development environment
 
@@ -76,7 +76,7 @@ When starting the API, the container (**development**) performs the following ac
 - Creates the database structure (*migrations*)
 - Runs the Web server
 
-**Done!** Now, you can access your application by http://localhost:3000.
+**Done!** Now, you can access your application by http://localhost:3000/healthcheck.
 
 ### Running tests and code analyzer
 
