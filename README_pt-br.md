@@ -31,13 +31,13 @@ Este projeto foi pensado na maior independência possível do sistema operaciona
 
 3. **Pronto!**. Você já pode acessar sua aplicação através de http://localhost:3000.
 
-## Entendendo e usando o ambiente de desenvolvendo
+## Entendendo e usando o ambiente de desenvolvimento
 
 ### Os Contêineres
 
 Este projeto disponibiliza quatro contêineres docker:
 
-- **database**: Contêiner que fornece duas instância DE banco de dados Postgresql: **postgres_dev** (para desenvolvimento) e **postgres_test** (para execução de testes)
+- **database**: Contêiner que fornece duas instância de banco de dados Postgresql: **postgres_dev** (para desenvolvimento) e **postgres_test** (para execução de testes)
 - **development**: Contêiner que executa a API. Ele depende do contêiner *database*.
 - **test**: Contêiner que executa testes e analisador de código. Ele depende do contêiner *database*.
 - **apiblueprint**: Contêiner que executa o servidor de documentação de API em formato Blueprint.
@@ -78,7 +78,7 @@ Ao iniciar o contêiner de execução da API (**development**) as seguintes aç�
 
 **Pronto!**. Você já pode acessar sua aplicação acessando http://localhost:3000.
 
-### Executando testes e executando o analisador de código
+### Executando testes e o analisador de código
 
 Este projeto usa um contêiner exclusivo para a execução de testes e analisador de código, que é o contêiner **test**. Para construir o contêiner de testes, execute:
 
@@ -100,7 +100,7 @@ Para executar testes de apenas um arquivo, você deve informar o arquivo no fina
 docker-compose run --rm test rails test test/controllers/clients_controller_test.rb
 ```
 
-Analize todo o código com o [Rubocop](https://github.com/rubocop-hq/rubocop) executando:
+Analise todo o código com o [Rubocop](https://github.com/rubocop-hq/rubocop) executando:
 
 ```bash
 docker-compose run --rm test rubocop
@@ -138,7 +138,7 @@ Se você precisar executar a migração de bando de dados, você deve usar a *ra
 docker-compose run --rm development rails db:migrate
 ```
 
-### Using API Blueprint documentation
+### Usando a documentação de API em Blueprint
 
 Este projeto usa o formato Blueprint para documentar APIs e você pode executar o contêiner **apiblueprint** para usá-lo. Então, execute:
 
@@ -148,7 +148,6 @@ docker-compose up apiblueprint
 
 e acesse ```http://localhost:8088/```
 
-The Blueprint container will interpret `doc.apib` file and will generate a html file. Then, when you access it, you will be able to read and interact with this documentation. More about Blueprint visit [api blueprint](https://apiblueprint.org/).
 O contêiner blueprint interpretará o arquivo `doc.apib` e gerará um arquivo em html. Então, quando você acessá-lo, você poderá ler e interagir com este documentação. Para mais informação sobre o Blueprint, visite [api blueprint](https://apiblueprint.org/).
 
 ## Licença
