@@ -42,3 +42,4 @@ gem 'pg', '~> 1.2', '>= 1.2.3'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'will_paginate', '~> 3.3'
