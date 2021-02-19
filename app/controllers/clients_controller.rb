@@ -1,6 +1,7 @@
 class ClientsController < ApplicationController
   def index
-    render json: params[:product_id].present? ? clients_by_product : Client.all
+    clients = params[:product_id].present? ? clients_by_product : Client
+    render_paginate(clients)
   end
 
   def show
@@ -25,7 +26,7 @@ class ClientsController < ApplicationController
   end
 
   def clients_by_product
-    Contract.where(product_id: params[:product_id]).map(&:client)
+    Client.joins(:contract).where(contracts: { product_id: params[:product_id] })
   end
 
   def client_by_product
