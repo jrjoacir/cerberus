@@ -13,15 +13,16 @@ class ApplicationController < ActionController::API
     render json: { message: 'Unprocessable Entity' }, status: 422
   end
 
-  def render_paginate(elements, status: 200)
+  def paginate(elements)
     @total_elements = elements.count
     set_pagination_headers!
+    elements.paginate(per_page: per_page, page: page)
+  end
 
-    begin
-      render json: elements.paginate(per_page: per_page, page: page), status: status
-    rescue RangeError => e
-      render json: { message: e.message }, status: 400
-    end
+  def render_paginate(elements, status: 200)
+    render json: paginate(elements), status: status
+  rescue RangeError => e
+    render json: { message: e.message }, status: 400
   end
 
   def page

@@ -4,8 +4,8 @@ class ContractsController < ApplicationController
   end
 
   def index
-    contracts = params[:user_id].present? ? contracts_by_user : Contract.all
-    render json: contracts.to_json(include_json)
+    contracts = params[:user_id].present? ? contracts_by_user : Contract
+    render json: paginate(contracts).to_json(include_json)
   end
 
   private
@@ -22,6 +22,6 @@ class ContractsController < ApplicationController
   end
 
   def contracts_by_user
-    User.find(params[:user_id]).roles.map(&:contract)
+    Contract.joins(roles: :users_roles).where(users_roles: { user_id: params[:user_id] }).distinct
   end
 end
