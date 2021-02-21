@@ -30,6 +30,15 @@ class ContractControllerTest < ActionDispatch::IntegrationTest
     assert_equal @response.code, '200'
   end
 
+  test 'should return contracts by paginate filter' do
+    per_page = contracts.count - 1
+    page = 2
+    get "/contracts?per_page=#{per_page}&page=#{page}"
+    assert_response :success
+    assert_equal @response.body, contracts.last(1).to_json
+    assert_equal @response.code, '200'
+  end
+
   test 'should return all contracts and show product details' do
     get '/contracts?show_product_details=true'
     assert_response :success

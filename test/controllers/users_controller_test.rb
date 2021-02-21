@@ -8,6 +8,15 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_equal @response.code, '200'
   end
 
+  test 'should return users by paginate filter' do
+    per_page = users.count - 1
+    page = 2
+    get "/users?per_page=#{per_page}&page=#{page}"
+    assert_response :success
+    assert_equal @response.body, users.last(1).to_json
+    assert_equal @response.code, '200'
+  end
+
   test 'should return one user' do
     get "/users/#{users(:one).id}"
     assert_response :success

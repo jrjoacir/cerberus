@@ -8,6 +8,15 @@ class RolesControllerTest < ActionDispatch::IntegrationTest
     assert_equal @response.code, '200'
   end
 
+  test 'should return roles by paginate filter' do
+    per_page = roles.count - 1
+    page = 2
+    get "/roles?per_page=#{per_page}&page=#{page}"
+    assert_response :success
+    assert_equal @response.body, roles.last(1).to_json
+    assert_equal @response.code, '200'
+  end
+
   test 'should return all roles find by product and client' do
     get "/products/#{contracts(:one).product_id}/clients/#{contracts(:one).client_id}/roles"
     assert_response :success

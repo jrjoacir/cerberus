@@ -8,6 +8,15 @@ class FeaturesControllerTest < ActionDispatch::IntegrationTest
     assert_equal @response.code, '200'
   end
 
+  test 'should return features by paginate filter' do
+    per_page = features.count - 1
+    page = 2
+    get "/features?per_page=#{per_page}&page=#{page}"
+    assert_response :success
+    assert_equal @response.body, features.last(1).to_json
+    assert_equal @response.code, '200'
+  end
+
   test 'should return all features filter by product' do
     get "/products/#{products(:one).id}/features"
     assert_response :success
