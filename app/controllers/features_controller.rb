@@ -1,10 +1,10 @@
 class FeaturesController < ApplicationController
   def index
-    return render json: features_by_product if params[:product_id].present?
+    return render_paginate(features_by_product) if params[:product_id].present?
 
-    return render json: features_by_user_and_contract if params[:user_id].present? && params[:contract_id].present?
+    return render_paginate(features_by_user_and_contract) if params[:user_id].present? && params[:contract_id].present?
 
-    render json: Feature.all
+    render_paginate(Feature)
   end
 
   def show
@@ -50,8 +50,7 @@ class FeaturesController < ApplicationController
   end
 
   def features_by_user_and_contract
-    user = User.find(params[:user_id])
-    roles = user.roles.select { |role| role.contract_id == params[:contract_id].to_i }
-    roles.map(&:features).flatten
+    Feature.joins(features_roles: { role: %i[users_roles contract] })
+           .where(users_roles: { user_id: params[:user_id] }, contracts: { id: params[:contract_id] })
   end
 end

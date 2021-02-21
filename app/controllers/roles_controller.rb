@@ -1,7 +1,7 @@
 class RolesController < ApplicationController
   def index
-    roles = params[:product_id].present? && params[:client_id].present? ? roles_by_product_and_client : Role.all
-    render json: roles
+    roles = params[:product_id].present? && params[:client_id].present? ? roles_by_product_and_client : Role
+    render_paginate(roles)
   end
 
   def show

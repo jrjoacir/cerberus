@@ -1,6 +1,6 @@
 FORMAT: 1A
 
-# Cerberus Rails API
+# Cerberus API
 
 This project was born to validate access to a product features by users saved on a system.
 
@@ -8,9 +8,19 @@ This project was born to validate access to a product features by users saved on
 
 ## Clients Collection [/clients]
 
-### List all clients [GET]
+### List all clients [GET /clients{?per_page,page}]
 + Request (application/json)
++ Parameters
+    + per_page: 10 (number, optional) - Number of elements per page
+    + page: 10 (number, optional) - Page number
 + Response 200 (application/json)
+    + Headers
+
+            X-Per-Page : 10
+            X-Page: 1
+            X-Total-Pages: 3
+            X-Total-Elements: 25
+
     + Attributes (array[Client])
 
 ### Create a client [POST]
@@ -50,9 +60,19 @@ This project was born to validate access to a product features by users saved on
 
 ## Products Collection [/products]
 
-### List all products [GET]
+### List all products [GET /products{?per_page,page}]
 + Request (application/json)
++ Parameters
+    + per_page: 10 (number, optional) - Number of elements per page
+    + page: 10 (number, optional) - Page number
 + Response 200 (application/json)
+    + Headers
+
+            X-Per-Page : 10
+            X-Page: 1
+            X-Total-Pages: 3
+            X-Total-Elements: 25
+
     + Attributes (array[Product])
 
 ### Create a product [POST]
@@ -99,9 +119,19 @@ This project was born to validate access to a product features by users saved on
 
 ## Users Collection [/users]
 
-### List all users [GET]
+### List all users [GET /users{?per_page,page}]
 + Request (application/json)
++ Parameters
+    + per_page: 10 (number, optional) - Number of elements per page
+    + page: 10 (number, optional) - Page number
 + Response 200 (application/json)
+    + Headers
+
+            X-Per-Page : 10
+            X-Page: 1
+            X-Total-Pages: 3
+            X-Total-Elements: 25
+
     + Attributes (array[User])
 
 ### Create a user [POST]
@@ -169,11 +199,13 @@ This project was born to validate access to a product features by users saved on
 
 # Group Contracts
 
-## Contracts Collection [/contracts{?show_product_details,show_client_details}]
+## Contracts Collection [/contracts]
 
-### List all contracts [GET]
+### List all contracts [GET /contracts{?show_product_details,show_client_details,per_page,page}]
 + Request (application/json)
 + Parameters
+    + per_page: 10 (number, optional) - Number of elements per page
+    + page: 10 (number, optional) - Page number
     + show_product_details: `true` (string, optional) - Show product details indicator
         + Default: `false`
         + Members
@@ -186,6 +218,13 @@ This project was born to validate access to a product features by users saved on
             + `false`
 
 + Response 200 (application/json)
+    + Headers
+
+            X-Per-Page : 10
+            X-Page: 1
+            X-Total-Pages: 3
+            X-Total-Elements: 25
+
     + Attributes (array[ContractsShowClientAndProduct])
 
 ### Create a contract [POST]
@@ -203,9 +242,19 @@ This project was born to validate access to a product features by users saved on
 
 ## Features Collection [/features]
 
-### List all features [GET]
+### List all features [GET /features{?per_page,page}]
 + Request (application/json)
++ Parameters
+    + per_page: 10 (number, optional) - Number of elements per page
+    + page: 10 (number, optional) - Page number
 + Response 200 (application/json)
+    + Headers
+
+            X-Per-Page : 10
+            X-Page: 1
+            X-Total-Pages: 3
+            X-Total-Elements: 25
+
     + Attributes (array[Feature])
 
 ### Create a feature [POST]
@@ -278,9 +327,19 @@ This project was born to validate access to a product features by users saved on
 
 ## Roles Collection [/roles]
 
-### List all roles [GET]
+### List all roles [GET /roles{?per_page,page}]
 + Request (application/json)
++ Parameters
+    + per_page: 10 (number, optional) - Number of elements per page
+    + page: 10 (number, optional) - Page number
 + Response 200 (application/json)
+    + Headers
+
+            X-Per-Page : 10
+            X-Page: 1
+            X-Total-Pages: 3
+            X-Total-Elements: 25
+
     + Attributes (array[Role])
 
 ### Create a role [POST]

@@ -30,6 +30,15 @@ class ContractControllerTest < ActionDispatch::IntegrationTest
     assert_equal @response.code, '200'
   end
 
+  test 'should return contracts by paginate filter' do
+    per_page = contracts.count - 1
+    page = 2
+    get "/contracts?per_page=#{per_page}&page=#{page}"
+    assert_response :success
+    assert_equal @response.body, contracts.last(1).to_json
+    assert_equal @response.code, '200'
+  end
+
   test 'should return all contracts and show product details' do
     get '/contracts?show_product_details=true'
     assert_response :success
@@ -47,21 +56,21 @@ class ContractControllerTest < ActionDispatch::IntegrationTest
   test 'should return all contracts filter by user' do
     get "/users/#{users(:one).id}/contracts"
     assert_response :success
-    assert_equal @response.body, users(:one).roles.map(&:contract).to_json
+    assert_equal @response.body, users(:one).roles.map(&:contract).uniq.to_json
     assert_equal @response.code, '200'
   end
 
   test 'should return all contracts filter by user and show product details' do
     get "/users/#{users(:one).id}/contracts?show_product_details=true"
     assert_response :success
-    assert_equal @response.body, users(:one).roles.map(&:contract).to_json(include: :product)
+    assert_equal @response.body, users(:one).roles.map(&:contract).uniq.to_json(include: :product)
     assert_equal @response.code, '200'
   end
 
   test 'should return all contracts filter by user and show client details' do
     get "/users/#{users(:one).id}/contracts?show_client_details=true"
     assert_response :success
-    assert_equal @response.body, users(:one).roles.map(&:contract).to_json(include: :client)
+    assert_equal @response.body, users(:one).roles.map(&:contract).uniq.to_json(include: :client)
     assert_equal @response.code, '200'
   end
 end

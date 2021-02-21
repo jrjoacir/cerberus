@@ -8,6 +8,15 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
     assert_equal @response.code, '200'
   end
 
+  test 'should return products by paginate filter' do
+    per_page = products.count - 1
+    page = 2
+    get "/products?per_page=#{per_page}&page=#{page}"
+    assert_response :success
+    assert_equal @response.body, products.last(1).to_json
+    assert_equal @response.code, '200'
+  end
+
   test 'should return all products filter by client' do
     get "/clients/#{clients(:one).id}/products"
     assert_response :success
