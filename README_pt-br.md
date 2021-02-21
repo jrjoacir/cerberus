@@ -29,7 +29,7 @@ Este projeto foi pensado na maior independência possível do sistema operaciona
 
 2. Iniciando o contêiner da aplicação (*development*): ```docker-compose up development```
 
-3. **Pronto!**. Você já pode acessar sua aplicação através de http://localhost:3000.
+3. **Pronto!**. Você já pode acessar sua aplicação através de http://localhost:3000/healthcheck.
 
 ## Entendendo e usando o ambiente de desenvolvimento
 
@@ -76,7 +76,7 @@ Ao iniciar o contêiner de execução da API (**development**) as seguintes aç�
 - Criação da estrutura do bancos de dados (*migrations*)
 - Execução do servidor Web
 
-**Pronto!**. Você já pode acessar sua aplicação acessando http://localhost:3000.
+**Pronto!**. Você já pode acessar sua aplicação acessando http://localhost:3000/healthcheck.
 
 ### Executando testes e o analisador de código
 
