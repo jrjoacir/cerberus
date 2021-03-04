@@ -3,7 +3,7 @@ class StatusesController < ApplicationController
 
   def index
     http_status = %i[error warning].include?(@status) ? :internal_server_error : :ok
-    render json: { status: @status, services: services_status }, status: http_status
+    render json: { environment: Rails.env, status: @status, services: services_status }, status: http_status
   end
 
   private
