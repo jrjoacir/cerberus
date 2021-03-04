@@ -1,0 +1,41 @@
+generates
+
+https://guides.rubyonrails.org/getting_started.html
+https://stackoverflow.com/questions/22661580/generate-rails-models-with-mandatory-required-fields-i-e-not-null-from-command
+
+rails generate model client name:string{30}:uniq
+rails generate model user login:string{30}:uniq name:string{60}
+rails generate model product name:string{30}:uniq description:string{300}
+
+https://stackoverflow.com/questions/5322067/generating-a-model-with-many-to-many-in-ruby-on-rails
+rails generate model clients_products client:references product:references
+rails generate model features product:references name:string{30}
+rails generate model roles clients_products:references name:string{30}
+rails generate model features_roles features:references roles:references
+rails generate model users_roles users:references roles:references
+
+Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+Read more about tests at https://guides.rubyonrails.org/testing.html
+
+- Treat with correct http status code response when try to create an exist PRODUCT-CLIENT association
+- Review all http status response
+- Check attributes and column names in N:N models (roles_id, users_id, etc)
+- Show features when get a role according to show_features parameter
+- Show role, contract and users when get a feature according to show_details parameter (do we need it?)
+- Is it possible to divide controller tests by actions?
+- Study about endpoints user x role and feature x role
+  - https://restfulapi.net/resource-naming/
+  - https://medium.com/@rafaelvicio/melhores-praticas-ao-desenvolver-api-restful-23b1865888e8
+  - https://medium.com/@wssilva.willian/design-de-api-rest-9807a5b16c9f
+- Create pagination in index actions
+- Create cache strategy
+- Improve api blueprint documentation with diffent ways to consume requests, like post roles and fetures
+- API Version
+- Study about if response have or not a key to resource (example: /clients -> response: clients: [{}])
+- Configure CORS
+- Improve response errors (implementation and documentation)
+- Do you have create and update role by client/product?
+- Configure and test production docker image. Tips:
+  - Create an image: docker build -t cerberus:0.0.0 .
+  - Run container: docker run --env-file ./.env.development -p 127.0.0.1:3000:3000/tcp cerberus:0.0.0 rails s -p 3000 -b 0.0.0.0
+  - Run docker documentation: https://docs.docker.com/engine/reference/commandline/run/
