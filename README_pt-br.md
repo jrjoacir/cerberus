@@ -150,6 +150,66 @@ e acesse ```http://localhost:8088/```
 
 O contêiner blueprint interpretará o arquivo `doc.apib` e gerará um arquivo em html. Então, quando você acessá-lo, você poderá ler e interagir com este documentação. Para mais informação sobre o Blueprint, visite [api blueprint](https://apiblueprint.org/).
 
+# Como criar e publicar uma imagem docker
+Decidimos disponibilizar uma imagem docker em [Docker Hub](https://hub.docker.com/) no [Repositório Cerberus](https://hub.docker.com/repository/docker/jrjoacir/cerberus) para ser usado em qualquer ambiente. Então, devemos criar uma imagem docker com a tag correta e distribuí-la no [Repositório Cerberus](https://hub.docker.com/repository/docker/jrjoacir/cerberus).
+
+1. **Criar a imagem docker**
+```sh
+docker build -f Dockerfile.deploy -t jrjoacir/cerberus:{VERSION} .
+```
+2. **Logar no Docker Hub**
+```sh
+docker login -u <user-dockerhub-name>
+```
+3. **Publicar imagem docker**
+```sh
+docker push jrjoacir/cerberus:{VERSION}
+```
+
+# Como realizar o *deploy*
+Disponibilizamos uma imagem docker no [repositório Cerberus](https://hub.docker.com/repository/docker/jrjoacir/cerberus) para executar um contêiner pronto para execução em qualquer ambiente.
+
+## Requisitos
+- [Docker](https://docs.docker.com/install/)
+- [Banco de dados Postgresql](https://www.postgresql.org/)
+- Variáveis de ambiente:
+
+| Variável       | Descrição   |
+|----------------|-------------|
+| **RAILS_ENV**  | Ambiente onde o contêiner será executado. Opções possíveis: test, development, staging e production |
+| **DB_HOST**    | Endereço do banco de dados |
+| **DB_NAME**    | *Schema* do banco de dados |
+| **DB_USER**    | Usuário do banco de dados. **Dica**: use um usuário de banco de dados para executar a aplicação apenas com acesso de leitura e escrita e apenas utilize um usuário administrador de banco de dados para criar os objetos de banco de dados |
+| **DB_PASS**    | Senha do usuário de banco de dados |
+| **DB_ADAPTER** | Adaptador de banco de dados usado para o framework Ruby on Rails. No momento, a única opção possível é o adaptador **postgresql** |
+
+## Execute a API Cerberus dentro do contêiner docker
+1. **Obtenha a imagem docker do DockerHub**
+```sh
+docker pull jrjoacir/cerberus:{VERSION}
+```
+2. **Execute os *migrations* para sincronizar os objetos de banco de dados**
+```sh
+docker run --rm -it -e RAILS_ENV={environment} -e DB_HOST={database_host} -e DB_NAME={database_name} -e DB_USER={database_user} -e DB_PASS={database_user_password} -e DB_ADAPTER=postgresql jrjoacir/cerberus:{VERSION} rails db:migrate
+```
+**Atenção**: Para executar os *migrations* no banco de dados, é necessário que o usuário de banco de dados tenha acesso a criar objetos de banco de dados (tabelas, índices, restrições).
+
+**Observação**: os valores das variáveis de ambiente podem ser definidas pelas variáveis de ambiente do sistema operacional. Para mais informações sobre executar docker com variáveis, leia a [Documentação do Docker Run](https://docs.docker.com/engine/reference/commandline/run/).
+
+3. **Execute o contêiner para ficar pronto para uso**
+```sh
+docker run --rm -it -e RAILS_ENV={environment} -e DB_HOST={database_host} -e DB_NAME={database_name} -e DB_USER={database_user} -e DB_PASS={database_user_password} -e DB_ADAPTER=postgresql -p {IP}:{Port}:{external port}/tcp jrjoacir/cerberus:{VERSION} rails s -p {port} -b 0.0.0.0
+```
+
+**Atenção**: Informe o usuário de banco de dados com os corretos privilégios para executar a API. Provavelmente, apenas privilégios de leitura e escrita aos dados seja necessário.
+
+**Observação**: Leia a [Documentação do Docker Run](https://docs.docker.com/engine/reference/commandline/run/) para saber mais sobre o uso de variáveis de ambiente e as configurações de portas.
+
+**Exemplo**:
+```sh
+docker run --rm -it -e RAILS_ENV=production -e DB_HOST=database -e DB_NAME=postgres_dev -e DB_USER=postgres -e DB_PASS=postgres_password -e DB_ADAPTER=postgresql -p 127.0.0.1:3000:3000/tcp jrjoacir/cerberus:0.1.0 rails s -p 3000 -b 0.0.0.0
+```
+
 ## Licença
 Este projeto esta licenciado por **GNU General Public License v3.0**.
 

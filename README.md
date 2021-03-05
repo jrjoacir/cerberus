@@ -150,6 +150,66 @@ and access ```http://localhost:8088/```
 
 The blueprint container will interpret `doc.apib` file and will generate a html file. Then, when you access it, you will be able to read and interact with this documentation. More about Blueprint, visit [api blueprint](https://apiblueprint.org/).
 
+# How to create and publish a docker image
+We decided to provided a docker image at [Docker Hub](https://hub.docker.com/) on [Cerberus repository](https://hub.docker.com/repository/docker/jrjoacir/cerberus) to be used on any environment. Then, we have to create a docker image tagged with a correct version and push it to [Cerberus repository](https://hub.docker.com/repository/docker/jrjoacir/cerberus).
+
+1. **Create docker image**
+```sh
+docker build -f Dockerfile.deploy -t jrjoacir/cerberus:{VERSION} .
+```
+2. **Login to Docker Hub**
+```sh
+docker login -u <user-dockerhub-name>
+```
+3. **Publish docker image**
+```sh
+docker push jrjoacir/cerberus:{VERSION}
+```
+
+# How to deploy
+We provided a docker image on [Cerberus repository](https://hub.docker.com/repository/docker/jrjoacir/cerberus) to execute a container ready to run on any environment.
+
+## Requirements
+- [Docker](https://docs.docker.com/install/)
+- [Postgresql database](https://www.postgresql.org/)
+- Environment variables:
+
+| Variable       | Description |
+|----------------|-------------|
+| **RAILS_ENV**  | Environment where container will run. Possible options: test, development, staging and production |
+| **DB_HOST**    | Database address |
+| **DB_NAME**    | Database schema name |
+| **DB_USER**    | User database. **Tip**: use database user database to application only for read-write access and only use database administrator to create database objects |
+| **DB_PASS**    | User database password |
+| **DB_ADAPTER** | Adapter database used by Ruby on Rails Framework. At the moment, it is possible use only **postgresql** adapter |
+
+## Execute Cerberus API on a docker container
+1. **Get the docker image from DockerHub**
+```sh
+docker pull jrjoacir/cerberus:{VERSION}
+```
+2. **Execute migration to synchronize database objects**
+```sh
+docker run --rm -it -e RAILS_ENV={environment} -e DB_HOST={database_host} -e DB_NAME={database_name} -e DB_USER={database_user} -e DB_PASS={database_user_password} -e DB_ADAPTER=postgresql jrjoacir/cerberus:{VERSION} rails db:migrate
+```
+**Attention**: To execute migration on database, it is necessary that database user has access to create database objects (tables, indexes, constraints).
+
+**Note**: environment variable values can be setted by operational system environment variable. More about run docker with variables, read [Docker Run Documentation](https://docs.docker.com/engine/reference/commandline/run/).
+
+3. **Run container ready to be used**
+```sh
+docker run --rm -it -e RAILS_ENV={environment} -e DB_HOST={database_host} -e DB_NAME={database_name} -e DB_USER={database_user} -e DB_PASS={database_user_password} -e DB_ADAPTER=postgresql -p {IP}:{Port}:{external port}/tcp jrjoacir/cerberus:{VERSION} rails s -p {port} -b 0.0.0.0
+```
+
+**Attention**: Inform a database user with correct privileges to run API. Probably, only privilegies to read-write data it is necessary.
+
+**Note**: Read [Docker Run Documentation](https://docs.docker.com/engine/reference/commandline/run/) to know more about environment variable use and port configurations.
+
+**Example**:
+```sh
+docker run --rm -it -e RAILS_ENV=production -e DB_HOST=database -e DB_NAME=postgres_dev -e DB_USER=postgres -e DB_PASS=postgres_password -e DB_ADAPTER=postgresql -p 127.0.0.1:3000:3000/tcp jrjoacir/cerberus:0.1.0 rails s -p 3000 -b 0.0.0.0
+```
+
 ## License
 This project is licensed by **GNU General Public License v3.0**.
 
