@@ -8,6 +8,13 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
     assert_equal @response.code, '200'
   end
 
+  test 'should return products filter by name' do
+    get '/products?name=Product-1'
+    assert_response :success
+    assert_equal @response.body, [products(:one)].to_json
+    assert_equal @response.code, '200'
+  end
+
   test 'should return products by paginate filter' do
     per_page = products.count - 1
     page = 2

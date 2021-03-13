@@ -1,11 +1,10 @@
 class ProductsController < ApplicationController
   def index
-    products = params[:client_id].present? ? products_by_client : Product
-    render_paginate(products)
+    render_paginate(find_products)
   end
 
   def show
-    product = params[:client_id].present? ? product_by_client : Product.find(params[:id])
+    product = find_products.first!
     render json: product.to_json(include_json)
   end
 
@@ -32,11 +31,13 @@ class ProductsController < ApplicationController
     params.require(:product).permit(:name, :description)
   end
 
-  def products_by_client
-    Product.joins(:contract).where(contracts: { client_id: params[:client_id] })
+  def find_products
+    return Product.where(filter_params) if params[:client_id].blank?
+
+    Product.where(filter_params).joins(:contract).where(contracts: { client_id: params[:client_id] })
   end
 
-  def product_by_client
-    Contract.where(client_id: params[:client_id], product_id: params[:id]).first!.product
+  def filter_params
+    { name: params[:name], id: params[:id] }.compact
   end
 end
