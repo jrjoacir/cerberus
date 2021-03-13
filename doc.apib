@@ -8,11 +8,12 @@ This project was born to validate access to a product features by users saved on
 
 ## Clients Collection [/clients]
 
-### List all clients [GET /clients{?per_page,page}]
+### List clients [GET /clients{?name,per_page,page}]
 + Request (application/json)
 + Parameters
     + per_page: 10 (number, optional) - Number of elements per page
     + page: 10 (number, optional) - Page number
+    + name: Client Name (string, optional) - Client name filter 
 + Response 200 (application/json)
     + Headers
 
@@ -60,11 +61,12 @@ This project was born to validate access to a product features by users saved on
 
 ## Products Collection [/products]
 
-### List all products [GET /products{?per_page,page}]
+### List products [GET /products{?name,per_page,page}]
 + Request (application/json)
 + Parameters
     + per_page: 10 (number, optional) - Number of elements per page
     + page: 10 (number, optional) - Page number
+    + name: Product Name (string, optional) - Product name filter 
 + Response 200 (application/json)
     + Headers
 
