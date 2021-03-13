@@ -8,6 +8,13 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     assert_equal @response.code, '200'
   end
 
+  test 'should return clients filter by name' do
+    get '/clients?name=Client-1'
+    assert_response :success
+    assert_equal @response.body, [clients(:one)].to_json
+    assert_equal @response.code, '200'
+  end
+
   test 'should return clients by paginate filter' do
     per_page = clients.count - 1
     page = 2
