@@ -4,6 +4,6 @@ RUN apk --no-cache add build-base tzdata postgresql-dev
 COPY Gemfile Gemfile.lock ./
 RUN gem update --system \
     && gem install bundler -v 2.0.2 \
-    && gem install rails -v 6.1.2.1 \
+    && gem install rails -v 6.1.3.1 \
     && bundle install
 COPY . .
